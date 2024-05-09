@@ -1,0 +1,59 @@
+$schema: https://aka.ms/winget-packages.schema.2.0.json
+CreationDate: '2024-05-07T20:07:31.495-00:00'
+Sources:
+  - Packages:
+      - PackageIdentifier: 7zip.7zip
+      - PackageIdentifier: Bitdefender.Bitdefender
+      - PackageIdentifier: Figma.Figma
+      - PackageIdentifier: Figma.FigmaAgent
+      - PackageIdentifier: GitHub.GitHubDesktop
+      - PackageIdentifier: Git.Git
+      - PackageIdentifier: Microsoft.Edge
+      - PackageIdentifier: Microsoft.EdgeWebView2Runtime
+      - PackageIdentifier: Microsoft.AppInstaller
+      - PackageIdentifier: Microsoft.UI.Xaml.2.7
+      - PackageIdentifier: Microsoft.UI.Xaml.2.8
+      - PackageIdentifier: Microsoft.VCLibs.Desktop.14
+      - PackageIdentifier: Microsoft.DevHome
+      - PackageIdentifier: Microsoft.WindowsTerminal
+      - PackageIdentifier: JanDeDobbeleer.OhMyPosh
+      - PackageIdentifier: TheBrowserCompany.Arc
+      - PackageIdentifier: Zoom.Zoom.EXE
+      - PackageIdentifier: Obsidian.Obsidian
+      - PackageIdentifier: Microsoft.VisualStudio.2022.Community
+      - PackageIdentifier: Beeper.Beeper
+      - PackageIdentifier: Microsoft.VCRedist.2013.x64
+      - PackageIdentifier: Microsoft.PowerShell
+      - PackageIdentifier: Microsoft.VCRedist.2010.x64
+      - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+      - PackageIdentifier: Microsoft.VCRedist.2015+.x86
+      - PackageIdentifier: Microsoft.VCRedist.2012.x86
+      - PackageIdentifier: Microsoft.SQLServerManagementStudio
+      - PackageIdentifier: Microsoft.CLRTypesSQLServer.2019
+      - PackageIdentifier: Microsoft.VCRedist.2005.x86
+      - PackageIdentifier: Microsoft.VisualStudioCode
+      - PackageIdentifier: BlenderFoundation.Blender.LTS
+      - PackageIdentifier: Logitech.OptionsPlus
+      - PackageIdentifier: Microsoft.WebDeploy
+      - PackageIdentifier: Microsoft.VCRedist.2013.x86
+      - PackageIdentifier: OSGeo.QGIS
+      - PackageIdentifier: MongoDB.Shell
+      - PackageIdentifier: Microsoft.VCRedist.2010.x86
+      - PackageIdentifier: Microsoft.OpenJDK.11
+      - PackageIdentifier: Microsoft.PowerShell
+      - PackageIdentifier: Microsoft.VCRedist.2012.x64
+      - PackageIdentifier: Microsoft.PowerToys
+      - PackageIdentifier: Microsoft.DotNet.SDK.7
+    SourceDetails:
+      Argument: https://cdn.winget.microsoft.com/cache
+      Identifier: Microsoft.Winget.Source_8wekyb3d8bbwe
+      Name: winget
+      Type: Microsoft.PreIndexed.Package
+  - Packages:
+      - PackageIdentifier: XPFFH613W8V6LV
+    SourceDetails:
+      Argument: https://storeedgefd.dsx.mp.microsoft.com/v9.0
+      Identifier: StoreEdgeFD
+      Name: msstore
+      Type: Microsoft.Rest
+WinGetVersion: 1.7.10861
