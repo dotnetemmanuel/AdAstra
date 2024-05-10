@@ -59,7 +59,11 @@ namespace AdAstra.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+
         }
+        [BindProperty]
+        public IFormFile UploadedImage { get; set; }
 
         private async Task LoadAsync(AdAstraUser user)
         {
@@ -110,6 +114,24 @@ namespace AdAstra.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            var image = UploadedImage;
+            string fileName = string.Empty;
+
+            if (image is not null)
+            {
+                fileName = DateTime.Now.ToString().Replace(":", "_").Replace(" ", "_") + image.FileName;
+
+                using (var fileStream = new FileStream("./wwwroot/userImages/" + fileName, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+            }
+                
+            
+
+            user.Avatar = fileName;
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

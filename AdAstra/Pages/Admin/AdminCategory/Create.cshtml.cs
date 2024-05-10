@@ -21,8 +21,15 @@ namespace AdAstra.Pages.Admin.AdminCategory
 
         public IActionResult OnGet()
         {
-        ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "Id");
-        ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "Id", "Description");
+            var categories = _context.Categories
+        .Select(c => new { c.Id, c.Name })
+        .ToList();
+
+            // Add an option for 'No Parent'
+            categories.Insert(0, new { Id = (int?)null, Name = "No Parent" });
+
+            ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "UserName");
+        ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return Page();
         }
 

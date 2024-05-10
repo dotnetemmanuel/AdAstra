@@ -4,7 +4,7 @@ namespace AdAstra.Models
 {
     public class Category
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         [Display(Name = "Category")]
         public string Name { get; set; }
@@ -15,10 +15,10 @@ namespace AdAstra.Models
 
         //Nav-properties
         public int? ParentCategoryId { get; set; }
-        public virtual Category? ParentCategory { get; set; }
+        public Category? ParentCategory { get; set; }
 
         public string CreatorId { get; set; }
-        public virtual Areas.Identity.Data.AdAstraUser Creator { get; set; }
+        public Areas.Identity.Data.AdAstraUser? Creator { get; set; }
 
         public virtual ICollection<Category> Subgategories { get; set; }
         public virtual ICollection<Post> Posts { get; set; }

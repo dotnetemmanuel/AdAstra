@@ -15,13 +15,21 @@
         </tr>
         @foreach (var user in Model.Users)
         {
-           
+            var imgSrc = string.Empty;
+            if (user.Avatar == "~/img/user.png")
+            {
+                imgSrc = user.Avatar;
+            }
+            else
+            {
+                imgSrc = "~/userImages/" + user.Avatar;
+            }
             <tr>
                 <td>@user.UserName</td>
                 <td>@user.Firstname</td>
                 <td>@user.Lastname</td>
                 <td>@user.Birthyear</td>
-                <td><img src="@Url.Content(user.Avatar)" alt="Alternate Text" style="width: 50px" /></td>
+                <td><img src="@Url.Content(imgSrc)" alt="Alternate Text" style="width: 30px" /></td>
             </tr>
         }
 

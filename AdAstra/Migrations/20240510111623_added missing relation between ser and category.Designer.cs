@@ -4,6 +4,7 @@ using AdAstra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdAstra.Migrations
 {
     [DbContext(typeof(AdAstraContext))]
-    partial class AdAstraContextModelSnapshot : ModelSnapshot
+    [Migration("20240510111623_added missing relation between ser and category")]
+    partial class addedmissingrelationbetweenserandcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,7 +116,11 @@ namespace AdAstra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AdAstraUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CreatorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -128,6 +135,8 @@ namespace AdAstra.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdAstraUserId");
 
                     b.HasIndex("CreatorId");
 
@@ -424,9 +433,15 @@ namespace AdAstra.Migrations
 
             modelBuilder.Entity("AdAstra.Models.Category", b =>
                 {
-                    b.HasOne("AdAstra.Areas.Identity.Data.AdAstraUser", "Creator")
+                    b.HasOne("AdAstra.Areas.Identity.Data.AdAstraUser", null)
                         .WithMany("Categories")
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("AdAstraUserId");
+
+                    b.HasOne("AdAstra.Areas.Identity.Data.AdAstraUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AdAstra.Models.Category", "ParentCategory")
                         .WithMany("Subgategories")

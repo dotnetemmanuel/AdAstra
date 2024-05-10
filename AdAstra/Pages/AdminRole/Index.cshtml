@@ -7,16 +7,27 @@
 {
     <table class="table table-striped">
     <tr>
-        <th>UserName</th>
+        <th style="width:30px">User</th>
+        <th></th>
         @foreach (var role in Model.Roles)
         {
             <th>@role.Name</th>
         }
     </tr>
     @foreach(var user in Model.Users)
-    {
-        <tr>
-            <td>@user.UserName</td>
+        {
+            var imgSrc = string.Empty;
+            if(user.Avatar == "~/img/user.png")
+            {
+                imgSrc = user.Avatar;
+            }
+            else
+            {
+                imgSrc = "~/userImages/" + user.Avatar;
+            }
+            <tr>
+                <td><img src="@Url.Content(imgSrc)" alt="Alternate Text" style="width:30px" /></td>
+                <td>@user.UserName</td>
 
             @foreach (var role in Model.Roles)
             {

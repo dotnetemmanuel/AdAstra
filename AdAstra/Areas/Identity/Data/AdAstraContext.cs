@@ -53,6 +53,12 @@ public class AdAstraContext : IdentityDbContext<AdAstraUser>
         .HasForeignKey(c => c.ParentCategoryId)
         .IsRequired(false);
 
+        builder.Entity<Category>()
+        .HasOne(c => c.Creator) 
+        .WithMany(c=>c.Categories)
+        .HasForeignKey(c => c.CreatorId)
+        .IsRequired(false);
+
         builder.Entity<Report>()
         .HasOne(r => r.ReportedPost)
         .WithMany(p => p.Reports)

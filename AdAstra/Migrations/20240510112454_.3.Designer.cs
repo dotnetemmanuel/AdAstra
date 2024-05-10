@@ -4,6 +4,7 @@ using AdAstra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdAstra.Migrations
 {
     [DbContext(typeof(AdAstraContext))]
-    partial class AdAstraContextModelSnapshot : ModelSnapshot
+    [Migration("20240510112454_.3")]
+    partial class _3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +117,7 @@ namespace AdAstra.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -426,7 +430,9 @@ namespace AdAstra.Migrations
                 {
                     b.HasOne("AdAstra.Areas.Identity.Data.AdAstraUser", "Creator")
                         .WithMany("Categories")
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AdAstra.Models.Category", "ParentCategory")
                         .WithMany("Subgategories")

@@ -71,7 +71,7 @@ namespace AdAstra.Pages.Admin.AdminCategory
             return RedirectToPage("./Index");
         }
 
-        private bool CategoryExists(int id)
+        private bool CategoryExists(int? id)
         {
             return _context.Categories.Any(e => e.Id == id);
         }
