@@ -1,0 +1,43 @@
+﻿@page
+@model AdAstra.Pages.AdminRole.IndexModel
+@{
+}
+
+@if(Model.Roles is not null)
+{
+    <table class="table table-striped">
+    <tr>
+        <th>UserName</th>
+        @foreach (var role in Model.Roles)
+        {
+            <th>@role.Name</th>
+        }
+    </tr>
+    @foreach(var user in Model.Users)
+    {
+        <tr>
+            <td>@user.UserName</td>
+
+            @foreach (var role in Model.Roles)
+            {
+                if (await Model._userManager.IsInRoleAsync(user, role.Name))
+                {
+                    <td><a href="?RemoveUserId=@user.Id&RoleName=@role.Name">Yes</a></td>
+                }
+                else
+                {
+                    <td><a href="?AddUserId=@user.Id&RoleName=@role.Name">No</a></td>
+                }
+            }
+
+        </tr>
+    }
+</table>
+}
+
+
+<form method="post">
+    <label for="RoleName">New Role</label>
+    <input type="text" name="RoleName" id="RoleName"/>
+    <input type="submit" value="Create Role"/>
+</form>

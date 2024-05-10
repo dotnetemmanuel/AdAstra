@@ -1,0 +1,50 @@
+﻿@page
+@model AdAstra.Pages.Admin.AdminMessage.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Message</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Message.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Message.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Message.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Message.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Message.SentAt)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Message.SentAt)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Message.Sender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Message.Sender.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Message.Recepient)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Message.Recepient.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Message.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

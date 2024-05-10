@@ -12,10 +12,24 @@ namespace AdAstra
 
             builder.Services.AddDbContext<AdAstraContext>(options => options.UseSqlServer(connectionString));
 
-            builder.Services.AddDefaultIdentity<Areas.Identity.Data.AdAstraUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AdAstraContext>();
+            builder.Services.AddDefaultIdentity<Areas.Identity.Data.AdAstraUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>().AddEntityFrameworkStores<AdAstraContext>();
+
+            builder.Services.AddAuthorization(options => options.AddPolicy("AdminRequirement", policy => policy.RequireRole("Admin", "Higgs")));
+            builder.Services.AddAuthorization(options => options.AddPolicy("HiggsRequirement", policy => policy.RequireRole("Higgs")));
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
+            //builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(options => {
+                options.Conventions.AuthorizeFolder("/AdminRole", "HiggsRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminCategory", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminMessage", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminPost", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminReply", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminReport", "AdminRequirement");
+                
+                // Now accessible by both Admin and Higgs roles
+            });
+
 
             var app = builder.Build();
 

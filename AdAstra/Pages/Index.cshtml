@@ -5,6 +5,26 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table class="table table-striped">
+        <tr>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Birthyear</th>
+            <th>Avatar</th>
+        </tr>
+        @foreach (var user in Model.Users)
+        {
+           
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Firstname</td>
+                <td>@user.Lastname</td>
+                <td>@user.Birthyear</td>
+                <td><img src="@Url.Content(user.Avatar)" alt="Alternate Text" style="width: 50px" /></td>
+            </tr>
+        }
+
+    </table>
+    
 </div>
