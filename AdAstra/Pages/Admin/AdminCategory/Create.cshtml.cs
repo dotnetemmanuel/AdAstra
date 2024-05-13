@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AdAstra.Data;
 using AdAstra.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AdAstra.Pages.Admin.AdminCategory
 {
     public class CreateModel : PageModel
     {
+        public readonly UserManager<AdAstra.Areas.Identity.Data.AdAstraUser> _userManager;
+
         private readonly AdAstra.Data.AdAstraContext _context;
 
-        public CreateModel(AdAstra.Data.AdAstraContext context)
+        public CreateModel(AdAstra.Data.AdAstraContext context, UserManager<AdAstra.Areas.Identity.Data.AdAstraUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
@@ -39,11 +43,14 @@ namespace AdAstra.Pages.Admin.AdminCategory
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            Category.CreatorId = user.Id;
             _context.Categories.Add(Category);
             await _context.SaveChangesAsync();
 
