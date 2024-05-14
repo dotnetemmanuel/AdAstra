@@ -25,22 +25,21 @@ namespace AdAstra.Pages.Admin.AdminCategory
 
         public IActionResult OnGet()
         {
+            //Add an "optional" field to allow parent category to remain null
             var categories = _context.Categories
         .Select(c => new { c.Id, c.Name })
         .ToList();
 
-            // Add an option for 'No Parent'
             categories.Insert(0, new { Id = (int?)null, Name = "No Parent" });
 
             ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "UserName");
-        ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return Page();
         }
 
         [BindProperty]
         public Category Category { get; set; } = default!;
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

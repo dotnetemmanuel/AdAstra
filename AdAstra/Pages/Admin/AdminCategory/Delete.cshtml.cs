@@ -28,8 +28,7 @@ namespace AdAstra.Pages.Admin.AdminCategory
             {
                 return NotFound();
             }
-
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Categories.Include(c => c.Creator).Include(pc => pc.ParentCategory).FirstOrDefaultAsync(m => m.Id == id);
 
             if (category == null)
             {

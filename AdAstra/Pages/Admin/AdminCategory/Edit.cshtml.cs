@@ -30,19 +30,23 @@ namespace AdAstra.Pages.Admin.AdminCategory
                 return NotFound();
             }
 
+            var categories = _context.Categories
+        .Select(c => new { c.Id, c.Name })
+        .ToList();
+
+            categories.Insert(0, new { Id = (int?)null, Name = "No Parent" });
+
             var category =  await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
             Category = category;
-           ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "Id");
+           ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "UserName");
            ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "Id", "Description");
             return Page();
         }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+                
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AdAstra.Data;
 using AdAstra.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AdAstra.Pages.Admin.AdminCategory
 {
@@ -16,19 +17,20 @@ namespace AdAstra.Pages.Admin.AdminCategory
 
         public DetailsModel(AdAstra.Data.AdAstraContext context)
         {
-            _context = context;
+            _context = context;            
         }
 
         public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
-        {
+        {            
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Categories.Include(c=> c.Creator).Include(pc => pc.ParentCategory).FirstOrDefaultAsync(m => m.Id == id);
+
             if (category == null)
             {
                 return NotFound();
@@ -36,6 +38,7 @@ namespace AdAstra.Pages.Admin.AdminCategory
             else
             {
                 Category = category;
+                
             }
             return Page();
         }
