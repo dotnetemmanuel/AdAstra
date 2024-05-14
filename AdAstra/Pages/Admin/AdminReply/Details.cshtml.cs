@@ -28,7 +28,7 @@ namespace AdAstra.Pages.Admin.AdminReply
                 return NotFound();
             }
 
-            var reply = await _context.Replies.FirstOrDefaultAsync(m => m.Id == id);
+            var reply = await _context.Replies.Include(c=> c.Creator).Include(p => p.Post).Include(pr => pr.ParentReply).Include(r => r.Replies).FirstOrDefaultAsync(m => m.Id == id);
             if (reply == null)
             {
                 return NotFound();

@@ -12,12 +12,12 @@
     <h4>Reply</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        @* <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reply.Title)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Reply.Title)
-        </dd>
+        </dd> *@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reply.Content)
         </dt>
@@ -40,19 +40,31 @@
             @Html.DisplayNameFor(model => model.Reply.Post)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reply.Post.Content)
+            @Html.DisplayFor(model => model.Reply.Post.Title)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reply.Creator)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reply.Creator.Id)
+            @Html.DisplayFor(model => model.Reply.Creator.UserName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reply.ParentReply)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Reply.ParentReply.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reply.Replies)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reply.Replies.Count)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reply.Reports)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reply.Reports.Count)
         </dd>
     </dl>
 </div>

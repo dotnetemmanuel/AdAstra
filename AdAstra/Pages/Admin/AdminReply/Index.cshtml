@@ -14,9 +14,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+           @*  <th>
                 @Html.DisplayNameFor(model => model.Reply[0].Title)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Reply[0].Content)
             </th>
@@ -35,15 +35,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.Reply[0].ParentReply)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reply[0].Replies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reply[0].Reports)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Reply) {
         <tr>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.Title)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
@@ -57,11 +63,17 @@
                 @Html.DisplayFor(modelItem => item.Post.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Creator.Id)
+                @Html.DisplayFor(modelItem => item.Creator.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ParentReply.Content)
-            </td>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Replies.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reports.Count)
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

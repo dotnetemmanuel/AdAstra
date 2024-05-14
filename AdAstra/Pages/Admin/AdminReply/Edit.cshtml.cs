@@ -36,7 +36,7 @@ namespace AdAstra.Pages.Admin.AdminReply
                 return NotFound();
             }
             Reply = reply;
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+           ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
            ViewData["ParentReplyId"] = new SelectList(_context.Replies, "Id", "Content");
            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Content");
             return Page();
