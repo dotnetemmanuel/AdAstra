@@ -26,6 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Report[0].ReportedReply)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Report[0].ReportedReply.UserId)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.ReportedAt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Reporter.Id)
+                @Html.DisplayFor(modelItem => item.Reporter.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReportedPost.Content)
@@ -44,6 +47,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReportedReply.Content)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReportedReply.Creator.UserName)
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

@@ -28,7 +28,7 @@ namespace AdAstra.Pages.Admin.AdminReport
                 return NotFound();
             }
 
-            var report = await _context.Reports.FirstOrDefaultAsync(m => m.Id == id);
+            var report = await _context.Reports.Include(r => r.Reporter).Include(p => p.ReportedPost).Include(r => r.ReportedReply).ThenInclude(c=> c.Creator).FirstOrDefaultAsync(m => m.Id == id);
             if (report == null)
             {
                 return NotFound();

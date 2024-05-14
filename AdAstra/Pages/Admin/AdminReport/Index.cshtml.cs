@@ -22,10 +22,11 @@ namespace AdAstra.Pages.Admin.AdminReport
         public IList<Report> Report { get;set; } = default!;
 
         public async Task OnGetAsync()
-        {
-            Report = await _context.Reports
+        {          
+                        Report = await _context.Reports
                 .Include(r => r.ReportedPost)
                 .Include(r => r.ReportedReply)
+                .ThenInclude(c => c.Creator)
                 .Include(r => r.Reporter).ToListAsync();
         }
     }

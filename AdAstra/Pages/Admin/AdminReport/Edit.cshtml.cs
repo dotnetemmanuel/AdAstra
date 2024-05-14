@@ -38,7 +38,7 @@ namespace AdAstra.Pages.Admin.AdminReport
             Report = report;
            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Content");
            ViewData["ReplyId"] = new SelectList(_context.Replies, "Id", "Content");
-           ViewData["ReporterId"] = new SelectList(_context.Users, "Id", "Id");
+           ViewData["ReporterId"] = new SelectList(_context.Users, "Id", "UserName");
             return Page();
         }
 
