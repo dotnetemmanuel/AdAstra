@@ -17,10 +17,10 @@ namespace AdAstra.Models
 
         //Nav-properties
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
         public string UserId { get; set; }
-        public virtual Areas.Identity.Data.AdAstraUser Creator { get; set; }
+        public Areas.Identity.Data.AdAstraUser? Creator { get; set; }
 
         public virtual ICollection<Reply> Replies { get; set; }
         public virtual ICollection<Report> Reports { get; set; }
@@ -30,6 +30,7 @@ namespace AdAstra.Models
             Replies = new List<Reply>();
             Reports = new List<Report>();
             CreatedAt = DateTime.Now;
+            Likes = 0;
         }
     }
 }

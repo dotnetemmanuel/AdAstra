@@ -49,6 +49,18 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Post.Creator.Id)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Post.Replies)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Replies.Count)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Post.Reports)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Reports.Count)
+        </dd>
     </dl>
     
     <form method="post">

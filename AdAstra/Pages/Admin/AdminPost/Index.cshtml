@@ -32,36 +32,49 @@
             <th>
                 @Html.DisplayNameFor(model => model.Post[0].Creator)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post[0].Replies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post[0].Reports)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Post) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Likes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator.Id)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Post)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Likes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creator.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Replies.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reports.Count)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

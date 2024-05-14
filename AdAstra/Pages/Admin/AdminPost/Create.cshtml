@@ -24,23 +24,23 @@
                 <input asp-for="Post.Content" class="form-control" />
                 <span asp-validation-for="Post.Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Post.CreatedAt" class="control-label"></label>
-                <input asp-for="Post.CreatedAt" class="form-control" />
+            @* <div class="form-group">
+                <label hidden asp-for="Post.CreatedAt" class="control-label"></label>
+                <input hidden asp-for="Post.CreatedAt" class="form-control" />
                 <span asp-validation-for="Post.CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Post.Likes" class="control-label"></label>
-                <input asp-for="Post.Likes" class="form-control" />
+            </div> *@
+           @*  <div class="form-group">
+                <label hidden asp-for="Post.Likes" class="control-label"></label>
+                <input hidden asp-for="Post.Likes" class="form-control" />
                 <span asp-validation-for="Post.Likes" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Post.CategoryId" class="control-label"></label>
                 <select asp-for="Post.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Post.UserId" class="control-label"></label>
-                <select asp-for="Post.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <label hidden asp-for="Post.UserId" class="control-label"></label>
+                <select hidden asp-for="Post.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

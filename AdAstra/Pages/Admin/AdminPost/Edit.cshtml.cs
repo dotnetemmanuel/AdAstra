@@ -37,7 +37,7 @@ namespace AdAstra.Pages.Admin.AdminPost
             }
             Post = post;
            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Description");
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+           ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
             return Page();
         }
 
