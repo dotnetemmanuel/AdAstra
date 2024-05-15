@@ -28,7 +28,7 @@ namespace AdAstra.Pages.Admin.AdminMessage
                 return NotFound();
             }
 
-            var message = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            var message = await _context.Messages.Include(s => s.Sender).Include(r => r.Recepient).FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {
                 return NotFound();

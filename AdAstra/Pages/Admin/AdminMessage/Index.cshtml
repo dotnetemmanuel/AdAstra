@@ -45,13 +45,13 @@
                 @Html.DisplayFor(modelItem => item.SentAt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Sender.Id)
+                @Html.DisplayFor(modelItem => item.Sender.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Recepient.Id)
+                @Html.DisplayFor(modelItem => item.Recepient.UserName)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                @* <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> | *@
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>

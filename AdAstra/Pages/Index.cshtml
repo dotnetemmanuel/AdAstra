@@ -33,6 +33,17 @@
             </tr>
         }
 
-    </table>
+    </table>      
     
+</div>
+
+<div class="text-start">
+    @foreach(var category in Model.Categories)
+    {
+        <h1 class="display-4">@category.Name</h1>
+        foreach(var subcategory in category.Subgategories)
+        {
+            <h1 style="margin-left: 3rem" class="display-6">@subcategory.Name</h1>
+        }
+    }
 </div>
