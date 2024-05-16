@@ -1,6 +1,16 @@
 :root {
     --dark: #1A1F29;
+    --border-radius: 6px;
+    --border-radius-avatar: 50px;
+    --box-shadow: 5px 5px 10px #0a0c10, -5px -5px 10px #2a3242;
+    --pink: #F92672;
+    --light-blue: #66D9EF;
+    --yellow: #FFFF00;
+    --green: #A6E22E;
+
 }
+
+/*=================== GENERAL STYLES ===================*/
 
 html {
     font-size: 14px;
@@ -36,18 +46,30 @@ html {
     min-height: 100%;
 }
 
-body {
-    font-family: "Futura Book", sans-serif;
-    margin-bottom: 60px;
-    color: white;
-   background-color: var(--dark);
-}
-
 #title {
     font-family: "Adam Cg", sans-serif;
     color: white;
 }
 
+body {
+    font-family: "Futura Book", sans-serif;
+    margin-bottom: 60px;
+    color: white;
+    background-color: var(--dark);
+}
+
+.avatar {
+    width: 50px;
+    border-radius: 50px;
+}
+
+.checkbox .form-label {
+    color: white;
+}
+
+label {
+    color: grey;
+}
 
 .table, th, td {
     color: white;
@@ -58,12 +80,125 @@ body {
         font-size: 1.2rem;
     }
 
-    label{
-        color: grey;
-    }
-
-.checkbox .form-label {
-    color: white;
+#banner {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    background-image: url('../img/ad_astra_banner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    margin-top: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
+.banner-text {
+    width: 50%;
+}
+
+    .banner-text p {
+        font-weight: 500;
+        font-size: 1.25rem;
+    }
+
+    .row{
+        margin-top:2rem;
+    }
+.category-list {
+    width: auto;
+    height: auto;
     
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.25rem;
+    margin-left:.75rem;
+}
+
+    .category-list .text-start h1 {
+        font-size: 2rem;
+    }
+
+        .category-list .text-start h1 a {
+            color: white;
+            cursor: pointer;
+        }
+
+    .category-list .text-start h3 {
+        font-size: 1.5rem;
+    }
+
+    .post{
+        display:grid;
+        align-content: center;
+        grid-template-rows: repeat(3, 50px);
+        width:100%;
+        background-color: var(--dark);
+        box-shadow: var(--box-shadow);
+        margin-left: 1rem;
+        border: none;
+    }
+
+        .post .card-body {
+            display: grid;
+            grid-template-rows: 30px 60px 50px;
+            grid-template-columns: 80px 1fr auto;
+            column-gap: 20px;
+        }
+
+    .round-avatar{
+        border-radius: var(--border-radius-avatar);
+        width: 60px;
+        grid-row: 1 / span 2;
+        grid-column: 1;
+justify-self: center;         }
+
+    .avatar{
+        border-radius: var(--border-radius-avatar);
+    }
+
+    .post-firstname{
+        grid-column: 1;
+        grid-row: 3;
+        text-align: center;
+    }
+
+.post-date {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.post-title {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.stats{display: flex;
+    grid-row:3;
+    grid-column:2 ;
+    gap: 3rem;
+    justify-content:end;
+    
+}
+
+.post-replies{
+    color: var(--green);
+}
+
+.post-likes {
+    color: var(--light-blue);
+}
+
+.post-reports{
+    color: var(--pink);
+}
+
+.post-replies img, .post-likes img, .post-reports img{
+    margin-right: 10px;
+}
+
+.latest {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}

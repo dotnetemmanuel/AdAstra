@@ -10,6 +10,7 @@ namespace AdAstra.Pages
     {
         public List<Areas.Identity.Data.AdAstraUser> Users { get; set; }
         public List<Models.Category> Categories { get; set; }
+        public List<Models.Post> Posts { get; set; }
 
         public readonly UserManager<Areas.Identity.Data.AdAstraUser> _userManager;
         private readonly AdAstraContext _context;
@@ -22,8 +23,9 @@ namespace AdAstra.Pages
 
         public async Task OnGetAsync()
         {
+            Categories = await DAL.AdAstraApi.GetAllCategoriesFromAPI();
             Users = await _userManager.Users.ToListAsync();
-            Categories = await _context.Categories.Where(c => c.ParentCategory == null).Include(sc => sc.Subgategories).ToListAsync();
+            Posts = await _context.Posts.Include(p => p.Creator).Include(p => p.Replies).Include(p => p.Reports).ToListAsync();
         }
     }
 }

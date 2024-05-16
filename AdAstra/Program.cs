@@ -17,6 +17,7 @@ namespace AdAstra
             builder.Services.AddAuthorization(options => options.AddPolicy("AdminRequirement", policy => policy.RequireRole("Admin", "Higgs")));
             builder.Services.AddAuthorization(options => options.AddPolicy("HiggsRequirement", policy => policy.RequireRole("Higgs")));
 
+            builder.Services.AddHttpClient();
             // Add services to the container.
             builder.Services.AddRazorPages();
             //builder.Services.AddRazorPages(options => {

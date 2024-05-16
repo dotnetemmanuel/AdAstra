@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark-gray border-bottom box-shadow mb-3">
             <div class="container">
                 <a id="title" class="navbar-brand" asp-area="" asp-page="/Index">Ad Astra</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -48,6 +48,12 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <div id="banner" class="text-center">
+                <div class="banner-text">
+                    <h1 id="title" class="display-6">Ad Astra</h1>
+                    <p>The #1 forum for space enthusiasts. Join the ultimate community where space exploration meets astronomy, and engage with experts and fans in lively discussions about the latest space missions, cosmic discoveries, and beyond.</p>
+                </div>
+            </div>
             @RenderBody()
         </main>
     </div>

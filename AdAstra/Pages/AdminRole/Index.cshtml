@@ -26,7 +26,7 @@
                 imgSrc = "~/userImages/" + user.Avatar;
             }
             <tr>
-                <td><img src="@Url.Content(imgSrc)" alt="Alternate Text" style="width:30px" /></td>
+                <td><img class="avatar" src="@Url.Content(imgSrc)" alt="Alternate Text" style="width:30px" /></td>
                 <td>@user.UserName</td>
 
             @foreach (var role in Model.Roles)
