@@ -1,22 +1,69 @@
+:root {
+    --dark: #1A1F29;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+}
+
+@font-face {
+    font-family: 'Adam Cg';
+    src: url('/fonts/Adam CG.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Futura Book';
+    src: url('/fonts/Futura Book.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Futura Medium';
+    src: url('/fonts/Futura Medium.ttf') format('truetype');
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: "Futura Book", sans-serif;
+    margin-bottom: 60px;
+    color: white;
+   background-color: var(--dark);
 }
+
+#title {
+    font-family: "Adam Cg", sans-serif;
+    color: white;
+}
+
+
+.table, th, td {
+    color: white;
+}
+
+    .table th {
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    label{
+        color: grey;
+    }
+
+.checkbox .form-label {
+    color: white;
+}
+
+    
