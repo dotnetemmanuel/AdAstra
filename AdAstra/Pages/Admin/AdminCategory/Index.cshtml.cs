@@ -19,13 +19,14 @@ namespace AdAstra.Pages.Admin.AdminCategory
             _context = context;
         }
 
-        public IList<Category> Category { get;set; } = default!;
+        public IList<Category> Category { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             Category = await _context.Categories
                 .Include(c => c.Creator)
-                .Include(c => c.ParentCategory).ToListAsync();
+                .Include(c => c.ParentCategory)
+                .ToListAsync();
         }
     }
 }

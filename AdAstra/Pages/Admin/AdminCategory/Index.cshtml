@@ -10,45 +10,93 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].ParentCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].Creator)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Category) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentCategory.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator.UserName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<h3>
+    Categories</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category[0].Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category[0].ParentCategory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category[0].Creator)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Category.Where(c => c.ParentCategory == null).OrderBy(c => c.Name))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParentCategory.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Creator.UserName)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h3>
+        Subcategories</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category[0].Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category[0].ParentCategory)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category[0].Creator)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Category.Where(c => c.ParentCategory != null).OrderBy(c => c.ParentCategory.Name))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParentCategory.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Creator.UserName)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
