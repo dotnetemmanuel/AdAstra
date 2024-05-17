@@ -1,0 +1,10 @@
+﻿@page
+@model AdAstra.Pages.PostsModel
+@{
+    ViewData["Title"] = "Posts";
+}
+<h1>@Model.Category.Name</h1>
+@foreach(var post in Model.Posts)
+{
+    <p>@post.Title</p>
+}

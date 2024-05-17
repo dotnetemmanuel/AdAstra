@@ -63,6 +63,7 @@ a {
 
     a:hover {
         color: var(--light-blue);
+        cursor: pointer;
     }
 
 .avatar {
@@ -147,27 +148,26 @@ li {
     }
 
 .cat-card {
-    z-index: -1;
+   
 }
 
-.cat-card-body 
-{
+.cat-card-body {
     display: grid;
     align-content: center;
-    z-index: 0;
+    
 }
 
 .cat-card-content {
-    z-index: 10;
+    
 }
 
 .cat-img {
     position: absolute;
     margin-right: 1rem;
     width: 200px;
-    z-index: -1;
+    z-index: 0;
     margin: auto;
-    opacity: .2;
+    opacity: .15;
     justify-self: center;
 }
 
@@ -181,13 +181,17 @@ li {
 }
 
 
-
 .cat-description {
     font-size: 1.2rem;
 }
 
 .subcat {
     font-size: 1.2rem;
+}
+
+.subcat a:hover{
+    color: var(--light-blue);
+    cursor: pointer;
 }
 
 .post {

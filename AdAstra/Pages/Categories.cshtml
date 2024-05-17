@@ -25,7 +25,11 @@
                         @foreach (var subcategory in category.Subgategories)
                         {
                             <li>
-                                <h6 class="card-text subcat"><a asp-page="/Posts">@subcategory.Name</a> - @subcategory.Description</h6>
+                                <h6 class="card-text subcat">
+                                    <a asp-page="/Posts" asp-route-subcategoryId="@subcategory.Id">@subcategory.Name</a>
+                                    -@subcategory.Description
+                                    
+                                </h6>
                             </li>
                             <br />
                         }
