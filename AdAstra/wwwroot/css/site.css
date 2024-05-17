@@ -7,7 +7,6 @@
     --light-blue: #66D9EF;
     --yellow: #FFFF00;
     --green: #A6E22E;
-
 }
 
 /*=================== GENERAL STYLES ===================*/
@@ -58,6 +57,14 @@ body {
     background-color: var(--dark);
 }
 
+a {
+    color: white;
+}
+
+    a:hover {
+        color: var(--light-blue);
+    }
+
 .avatar {
     width: 50px;
     border-radius: 50px;
@@ -69,6 +76,10 @@ body {
 
 label {
     color: grey;
+}
+
+li {
+    list-style: none;
 }
 
 .table, th, td {
@@ -92,6 +103,7 @@ label {
     margin-top: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    padding: 1rem 0;
 }
 
 .banner-text {
@@ -103,17 +115,17 @@ label {
         font-size: 1.25rem;
     }
 
-    .row{
-        margin-top:2rem;
-    }
+.row {
+    margin-top: 2rem;
+}
+
 .category-list {
     width: auto;
     height: auto;
-    
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     padding: 1.25rem;
-    margin-left:.75rem;
+    margin-left: .75rem;
 }
 
     .category-list .text-start h1 {
@@ -125,44 +137,94 @@ label {
             cursor: pointer;
         }
 
+            .category-list .text-start h1 a:hover {
+                color: var(--light-blue);
+                cursor: pointer;
+            }
+
     .category-list .text-start h3 {
         font-size: 1.5rem;
     }
 
-    .post{
-        display:grid;
-        align-content: center;
-        grid-template-rows: repeat(3, 50px);
-        width:100%;
-        background-color: var(--dark);
-        box-shadow: var(--box-shadow);
-        margin-left: 1rem;
-        border: none;
+.cat-card {
+    z-index: -1;
+}
+
+.cat-card-body 
+{
+    display: grid;
+    align-content: center;
+    z-index: 0;
+}
+
+.cat-card-content {
+    z-index: 10;
+}
+
+.cat-img {
+    position: absolute;
+    margin-right: 1rem;
+    width: 200px;
+    z-index: -1;
+    margin: auto;
+    opacity: .2;
+    justify-self: center;
+}
+
+.card {
+    background-color: var(--dark);
+    border: none;
+    box-shadow: var(--box-shadow);
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    width: 45%;
+}
+
+
+
+.cat-description {
+    font-size: 1.2rem;
+}
+
+.subcat {
+    font-size: 1.2rem;
+}
+
+.post {
+    display: grid;
+    align-content: center;
+    grid-template-rows: repeat(3, 50px);
+    width: 100%;
+    background-color: var(--dark);
+    box-shadow: var(--box-shadow);
+    margin-left: 1rem;
+    border: none;
+}
+
+    .post .card-body {
+        display: grid;
+        grid-template-rows: 30px 60px 50px;
+        grid-template-columns: 80px 1fr auto;
+        column-gap: 20px;
     }
 
-        .post .card-body {
-            display: grid;
-            grid-template-rows: 30px 60px 50px;
-            grid-template-columns: 80px 1fr auto;
-            column-gap: 20px;
-        }
+.round-avatar {
+    border-radius: var(--border-radius-avatar);
+    width: 60px;
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    justify-self: center;
+}
 
-    .round-avatar{
-        border-radius: var(--border-radius-avatar);
-        width: 60px;
-        grid-row: 1 / span 2;
-        grid-column: 1;
-justify-self: center;         }
+.avatar {
+    border-radius: var(--border-radius-avatar);
+}
 
-    .avatar{
-        border-radius: var(--border-radius-avatar);
-    }
-
-    .post-firstname{
-        grid-column: 1;
-        grid-row: 3;
-        text-align: center;
-    }
+.post-firstname {
+    grid-column: 1;
+    grid-row: 3;
+    text-align: center;
+}
 
 .post-date {
     grid-column: 2;
@@ -174,15 +236,15 @@ justify-self: center;         }
     grid-row: 2;
 }
 
-.stats{display: flex;
-    grid-row:3;
-    grid-column:2 ;
+.stats {
+    display: flex;
+    grid-row: 3;
+    grid-column: 2;
     gap: 3rem;
-    justify-content:end;
-    
+    justify-content: end;
 }
 
-.post-replies{
+.post-replies {
     color: var(--green);
 }
 
@@ -190,13 +252,13 @@ justify-self: center;         }
     color: var(--light-blue);
 }
 
-.post-reports{
+.post-reports {
     color: var(--pink);
 }
 
-.post-replies img, .post-likes img, .post-reports img{
-    margin-right: 10px;
-}
+    .post-replies img, .post-likes img, .post-reports img {
+        margin-right: 10px;
+    }
 
 .latest {
     font-size: 1.5rem;

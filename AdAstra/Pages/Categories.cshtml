@@ -1,0 +1,39 @@
+﻿@page
+@model AdAstra.Pages.CategoriesModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="row cat-row">
+    @foreach (var category in Model.Categories.Where(c => c.ParentCategory == null))
+    {
+        var imgSrc = category.Name switch
+        {
+            "Astronomy" => "~/img/icons/constellation.png",
+            "Astrophysics" => "~/img/icons/galaxy.png",
+            _ => "~/img/icons/astronauts.png"
+        };
+
+
+        <div class="card col-sm-5 cat-card">
+            <div class="card-body cat-card-body">
+                <img class="cat-img" src="@Url.Content(imgSrc)" />
+                <div class="cat-card-content">
+                    <h3 class="card-title">@category.Name - <span class="cat-description">@category.Description</span></h3>
+                    <br>
+                    <ul>
+                        @foreach (var subcategory in category.Subgategories)
+                        {
+                            <li>
+                                <h6 class="card-text subcat"><a asp-page="/Posts">@subcategory.Name</a> - @subcategory.Description</h6>
+                            </li>
+                            <br />
+                        }
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    }
+</div>

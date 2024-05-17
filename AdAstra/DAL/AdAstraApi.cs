@@ -40,6 +40,11 @@ namespace AdAstra.DAL
                 if (response.IsSuccessStatusCode)
                 {
                     string responseStr = await response.Content.ReadAsStringAsync();
+                    var options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve,
+                        PropertyNameCaseInsensitive = true
+                    };
                     category = JsonSerializer.Deserialize<Models.Category>(responseStr);
                 }
                 return category;
