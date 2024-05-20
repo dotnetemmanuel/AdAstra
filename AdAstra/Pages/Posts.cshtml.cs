@@ -23,7 +23,7 @@ namespace AdAstra.Pages
             if(subcategoryId != null)
             {
                 Category = _context.Categories.Where(c => c.Id == subcategoryId).FirstOrDefault();
-                Posts = await _context.Posts.Where(p => p.CategoryId == subcategoryId).Include(p => p.Category).Include(p=> p.Creator).ToListAsync();
+                Posts = await _context.Posts.Where(p => p.CategoryId == subcategoryId).Include(p => p.Category).Include(p=> p.Creator).Include(p => p.Replies).Include(p => p.Reports).ToListAsync();
             }            
         }
     }

@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Categories";
 }
-
+<br />
+<h1>@ViewData["Title"]</h1>
 <div class="row cat-row">
     @foreach (var category in Model.Categories.Where(c => c.ParentCategory == null))
     {
