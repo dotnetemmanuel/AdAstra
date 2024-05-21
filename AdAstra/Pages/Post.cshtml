@@ -30,7 +30,28 @@
             <p class="card-text post-content">@Model.Post.Content</p>
             <div class="stats">
                 <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@Model.Post.Replies.Count</p>
-                <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@Model.Post.Likes</p>
+
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form class="action-form" method="post" asp-page-handler="LikePost" asp-route-postId="@Model.Post.Id">
+                        <input type="hidden" name="postId" value="@Model.Post.Id" />
+                        <p class="card-text post-likes">
+                            <button class="action-button" type="submit">
+                                <img src="~/img/interactive_icons/like.svg" alt="likes" />
+                            </button> @Model.Post.Likes
+                        </p>
+                    </form>
+                }
+                else
+                {
+                    <p class="card-text post-likes">
+                        <button class="action-button" type="button" onclick="showAlert()">
+                            <img src="~/img/interactive_icons/like.svg" alt="likes" />
+                        </button> @Model.Post.Likes
+                    </p>
+                }
+
                 <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />Total: @Model.Post.Reports.Count</p>
             </div>
         </div>
@@ -62,9 +83,6 @@
                         <div class="stats">
                             <p class="card-text reply-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@reply.Replies.Count</p>
 
-
-
-
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <form class="action-form" method="post" asp-page-handler="LikeReply" asp-route-postId="@Model.Post.Id">
@@ -86,8 +104,6 @@
                                 </p>
                             }
 
-
-
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <form class="action-form" method="post" asp-page-handler="ReportReply" asp-route-postId="@Model.Post.Id">
@@ -108,10 +124,6 @@
                                     </button> @reply.Reports.Count
                                 </p>
                             }
-
-
-
-
 
                         </div>
                     </div>

@@ -34,6 +34,27 @@ namespace AdAstra.Pages
             }
         }
 
+        public async Task<IActionResult> OnPostLikePostAsync(int postId)
+        {
+            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).FirstOrDefault();
+
+            
+            if (Post is null)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            Post.Likes++;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Post", new { postId = Post.Id });
+        }
+
         public async Task<IActionResult> OnPostReportReplyAsync(int id, int postId)
         {
             if (User.Identity.IsAuthenticated)
