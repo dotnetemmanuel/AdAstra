@@ -22,6 +22,7 @@ namespace AdAstra.Pages
 
         public Models.Post Post { get; set; }
         public Models.Report Report { get; set; }
+        public List<Models.Report> Reports { get; set; }
         public Models.Reply Reply { get; set; }
         public Areas.Identity.Data.AdAstraUser AdastraUser { get; set; }
 
@@ -30,7 +31,9 @@ namespace AdAstra.Pages
         {
             if (postId != null)
             {
-                Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Reports).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Reports).Include(p => p.Replies).ThenInclude(r => r.Creator).FirstOrDefault();
+                Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Reports).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Reports).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Replies).ThenInclude(r => r.Replies).ThenInclude(r => r.Reports).FirstOrDefault();
+
+                Reports = Post.Reports.Where(r => r.ReplyId == null).ToList();
             }
         }
 
@@ -50,6 +53,31 @@ namespace AdAstra.Pages
             }
 
             Post.Likes++;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Post", new { postId = Post.Id });
+        }
+
+        public async Task<IActionResult> OnPostReportPostAsync(int postId)
+        {
+            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(r=> r.Replies).ThenInclude(r => r.Reports).Include(p => p.Reports).FirstOrDefault();
+
+            if (Post is null)
+            {
+                return NotFound();
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            Report = new();
+            Report.ReporterId = userId;
+            Report.PostId = Post.Id;            
+
+            Post.Reports.Add(Report);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Post", new { postId = Post.Id });

@@ -7,7 +7,7 @@
 <br />
 @if (Model.Post is not null)
 {
-    <h1>Post thread - @Model.Post.Title</h1>
+    <h1>@Model.Post.Title</h1>
     <br />
     <div class="card post post-page">
         <div class="card-body">
@@ -50,6 +50,25 @@
                             <img src="~/img/interactive_icons/like.svg" alt="likes" />
                         </button> @Model.Post.Likes
                     </p>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form class="action-form" method="post" asp-page-handler="ReportPost" asp-route-postId="@Model.Post.Id">
+                        <input type="hidden" name="postId" value="@Model.Post.Id" />
+                        <p class="card-text post-reports">
+                            <button class="action-button" type="submit">
+                                <img src="~/img/interactive_icons/report.svg" alt="reports" />
+                            </button> @Model.Reports.Count
+                        </p>
+                    </form>
+                }
+                else
+                {
+                    <p class="card-text post-reports">
+                        <button class="action-button" type="button" onclick="showAlert()">
+                            <img src="~/img/interactive_icons/report.svg" alt="reports" />
+                        </button> @Model.Reports.Count</p>
                 }
 
                 <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />Total: @Model.Post.Reports.Count</p>
