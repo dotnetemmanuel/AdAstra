@@ -31,7 +31,7 @@
             <div class="stats">
                 <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@Model.Post.Replies.Count</p>
                 <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@Model.Post.Likes</p>
-                <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@Model.Post.Reports.Count</p>
+                <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />Total: @Model.Post.Reports.Count</p>
             </div>
         </div>
 
@@ -61,32 +61,58 @@
                         <p class="card-text reply-content">@reply.Content</p>
                         <div class="stats">
                             <p class="card-text reply-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@reply.Replies.Count</p>
-                            <p class="card-text reply-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@reply.Likes</p>
+
+
+
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form class="action-form" method="post" asp-page-handler="LikeReply" asp-route-postId="@Model.Post.Id">
+                                    <input type="hidden" name="id" value="@reply.Id" />
+                                    <p class="card-text reply-likes">
+                                        <button class="action-button" type="submit">
+                                            <img src="~/img/interactive_icons/like.svg" alt="likes" />
+                                        </button> @reply.Likes
+                                    </p>
+
+                                </form>
+                            }
+                            else
+                            {
+                                <p class="card-text reply-likes">
+                                    <button class="action-button" type="button" onclick="showAlert()">
+                                        <img src="~/img/interactive_icons/like.svg" alt="likes" />
+                                    </button> @reply.Likes
+                                </p>
+                            }
+
+
+
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <form class="action-form" method="post" asp-page-handler="ReportReply" asp-route-postId="@Model.Post.Id">
                                     <input type="hidden" name="id" value="@reply.Id" />
-                                <p class="card-text reply-reports">
-                                
-                                <button class="action-button" type="submit"><img src="~/img/interactive_icons/report.svg" alt="reports" />
-                                    </button> @reply.Reports.Count
-                                </p>
+                                    <p class="card-text reply-reports">
+
+                                        <button class="action-button" type="submit">
+                                            <img src="~/img/interactive_icons/report.svg" alt="reports" />
+                                        </button> @reply.Reports.Count
+                                    </p>
                                 </form>
                             }
                             else
                             {
                                 <p class="card-text reply-reports">
-                                    
                                     <button class="action-button" type="button" onclick="showAlert()">
                                         <img src="~/img/interactive_icons/report.svg" alt="reports" />
                                     </button> @reply.Reports.Count
                                 </p>
                             }
 
-                            
-                                                        
-                            
-                                    
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -130,10 +156,10 @@
 }
 
 <script type="text/javascript">
-    function showAlert(){
+    function showAlert() {
         alert("You must be logged in to perform this action.");
     }
-        </script>
+</script>
 
 
 

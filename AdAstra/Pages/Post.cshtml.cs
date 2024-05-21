@@ -46,11 +46,8 @@ namespace AdAstra.Pages
                 {
                     return NotFound();
                 }
-
-                //// CONTINUE HERE!
-                Post = Reply.Post;
+                                
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
 
                 if(!ModelState.IsValid)
                 {
@@ -63,9 +60,30 @@ namespace AdAstra.Pages
 
                 Post.Reports.Add(Report);
                 await _context.SaveChangesAsync();
-
-               
+                               
             }
+            return RedirectToPage("/Post", new { postId = Post.Id });
+        }
+
+        public async Task<IActionResult> OnPostLikeReplyAsync(int id, int postId)
+        {
+            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).FirstOrDefault();
+
+            Reply = Post.Replies.Where(r => r.Id == id).FirstOrDefault();
+
+            if (Reply is null)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            Reply.Likes++;
+            await _context.SaveChangesAsync();
+
             return RedirectToPage("/Post", new { postId = Post.Id });
         }
     }
