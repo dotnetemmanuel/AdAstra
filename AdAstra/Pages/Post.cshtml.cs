@@ -24,6 +24,7 @@ namespace AdAstra.Pages
         public Models.Report Report { get; set; }
         public List<Models.Report> Reports { get; set; }
         public Models.Reply Reply { get; set; }
+        public Models.Reply Subreply { get; set; }
         public Areas.Identity.Data.AdAstraUser AdastraUser { get; set; }
 
 
@@ -83,6 +84,28 @@ namespace AdAstra.Pages
             return RedirectToPage("/Post", new { postId = Post.Id });
         }
 
+        public async Task<IActionResult> OnPostLikeReplyAsync(int id, int postId)
+        {
+            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).FirstOrDefault();
+
+            Reply = Post.Replies.Where(r => r.Id == id).FirstOrDefault();
+
+            if (Reply is null)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            Reply.Likes++;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Post", new { postId = Post.Id });
+        }
+
         public async Task<IActionResult> OnPostReportReplyAsync(int id, int postId)
         {
             if (User.Identity.IsAuthenticated)
@@ -114,13 +137,14 @@ namespace AdAstra.Pages
             return RedirectToPage("/Post", new { postId = Post.Id });
         }
 
-        public async Task<IActionResult> OnPostLikeReplyAsync(int id, int postId)
+        public async Task<IActionResult> OnPostLikeSubreplyAsync(int replyId,int subreplyId, int postId)
         {
-            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).FirstOrDefault();
+            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).Include(p => p.Replies).ThenInclude(r=> r.Replies).FirstOrDefault();
 
-            Reply = Post.Replies.Where(r => r.Id == id).FirstOrDefault();
+            Reply = Post.Replies.Where(r => r.Id == replyId).FirstOrDefault();
+            Subreply = Reply.Replies.Where(sr => sr.Id == subreplyId).FirstOrDefault();
 
-            if (Reply is null)
+            if (Subreply is null)
             {
                 return NotFound();
             }
@@ -130,7 +154,7 @@ namespace AdAstra.Pages
                 return Page();
             }
 
-            Reply.Likes++;
+            Subreply.Likes++;
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Post", new { postId = Post.Id });
