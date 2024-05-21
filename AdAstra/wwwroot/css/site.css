@@ -66,12 +66,11 @@ a {
         cursor: pointer;
     }
 
-.action-button{
+.action-button {
     background-color: transparent;
     border: none;
     width: 30px;
-    margin-right:.5rem;
-    
+    margin-right: .5rem;
 }
 
 .avatar {
@@ -82,6 +81,28 @@ a {
 .checkbox .form-label {
     color: white;
 }
+
+.category_create-post {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto 12rem;
+}
+
+.create-post-btn {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    grid-row: 1;
+    grid-column: 2;
+    font-size: 1.25rem;
+}
+
+
+
+.category-name {
+    grid-row: 1;
+    grid-column: 1;
+}
+
 
 label {
     color: grey;
@@ -156,17 +177,14 @@ li {
     }
 
 .cat-card {
-   
 }
 
 .cat-card-body {
     display: grid;
     align-content: center;
-    
 }
 
 .cat-card-content {
-    
 }
 
 .cat-img {
@@ -197,10 +215,10 @@ li {
     font-size: 1.2rem;
 }
 
-.subcat a:hover{
-    color: var(--light-blue);
-    cursor: pointer;
-}
+    .subcat a:hover {
+        color: var(--light-blue);
+        cursor: pointer;
+    }
 
 /*=================== POST ===================*/
 
@@ -213,7 +231,6 @@ li {
     box-shadow: var(--box-shadow);
     margin-left: 1rem;
     border: none;
-   
 }
 
     .post .card-body {
@@ -223,16 +240,16 @@ li {
         column-gap: 20px;
     }
 
-    .post-page{
-        margin-left: 0;
-    }
+.post-page {
+    margin-left: 0;
+}
 
 
 
 .round-avatar {
     border-radius: var(--border-radius-avatar);
     width: 60px;
-    grid-row: 1 / span 2 ;
+    grid-row: 1 / span 2;
     grid-column: 1;
     justify-self: center;
 }
@@ -263,6 +280,7 @@ li {
     grid-column: 2;
     grid-row: 3;
 }
+
 .reply-content {
     grid-column: 2;
     grid-row: 2;
@@ -301,7 +319,7 @@ li {
     grid-template-columns: auto 1fr;
     background-color: var(--dark);
     box-shadow: var(--box-shadow);
-    width:inherit;
+    width: inherit;
     margin-left: 1rem;
     border: none;
     height: auto;
@@ -313,7 +331,6 @@ li {
         display: grid;
         grid-template-rows: subgrid;
         grid-template-columns: subgrid;
-        
         column-gap: 20px;
     }
 
@@ -383,15 +400,13 @@ li {
         margin-right: 10px;
     }
 
-.subreply{
+.subreply {
     margin-left: 10rem;
 }
 
-.sub-subreply{
+.sub-subreply {
     margin-left: 15rem;
 }
-
-
 
 /*======================================*/
 
