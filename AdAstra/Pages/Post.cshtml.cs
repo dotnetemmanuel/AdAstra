@@ -32,7 +32,14 @@ namespace AdAstra.Pages
         {
             if (postId != null)
             {
-                Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Reports).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Reports).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Replies).ThenInclude(r => r.Replies).ThenInclude(r => r.Reports).FirstOrDefault();
+                Post = _context.Posts.Where(p => p.Id == postId)
+                    .Include(p => p.Category)
+                    .Include(p => p.Reports)
+                    .Include(p => p.Creator)
+                    .Include(p => p.Replies).ThenInclude(r => r.Reports)
+                    .Include(p => p.Replies).ThenInclude(r => r.Creator)
+                    .Include(p => p.Replies).ThenInclude(r => r.Replies).ThenInclude(r => r.Reports)
+                    .FirstOrDefault();
 
                 Reports = Post.Reports.Where(r => r.ReplyId == null).ToList();
             }
@@ -42,7 +49,7 @@ namespace AdAstra.Pages
         {
             Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).FirstOrDefault();
 
-            
+
             if (Post is null)
             {
                 return NotFound();
@@ -61,7 +68,12 @@ namespace AdAstra.Pages
 
         public async Task<IActionResult> OnPostReportPostAsync(int postId)
         {
-            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(r=> r.Replies).ThenInclude(r => r.Reports).Include(p => p.Reports).FirstOrDefault();
+            Post = _context.Posts.Where(p => p.Id == postId)
+                .Include(p => p.Category)
+                .Include(p => p.Creator)
+                .Include(p => p.Replies).ThenInclude(r => r.Creator)
+                .Include(r => r.Replies).ThenInclude(r => r.Reports)
+                .Include(p => p.Reports).FirstOrDefault();
 
             if (Post is null)
             {
@@ -76,7 +88,7 @@ namespace AdAstra.Pages
             }
             Report = new();
             Report.ReporterId = userId;
-            Report.PostId = Post.Id;            
+            Report.PostId = Post.Id;
 
             Post.Reports.Add(Report);
             await _context.SaveChangesAsync();
@@ -86,7 +98,11 @@ namespace AdAstra.Pages
 
         public async Task<IActionResult> OnPostLikeReplyAsync(int id, int postId)
         {
-            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).FirstOrDefault();
+            Post = _context.Posts.Where(p => p.Id == postId)
+                .Include(p => p.Category)
+                .Include(p => p.Creator)
+                .Include(p => p.Replies).ThenInclude(r => r.Creator)
+                .Include(p => p.Reports).FirstOrDefault();
 
             Reply = Post.Replies.Where(r => r.Id == id).FirstOrDefault();
 
@@ -110,7 +126,12 @@ namespace AdAstra.Pages
         {
             if (User.Identity.IsAuthenticated)
             {
-                Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).FirstOrDefault();
+                Post = _context.Posts.Where(p => p.Id == postId)
+                    .Include(p => p.Category)
+                    .Include(p => p.Creator)
+                    .Include(p => p.Replies).ThenInclude(r => r.Creator)
+                    .Include(p => p.Reports)
+                    .FirstOrDefault();
 
                 Reply = Post.Replies.Where(r => r.Id == id).FirstOrDefault();
 
@@ -118,10 +139,10 @@ namespace AdAstra.Pages
                 {
                     return NotFound();
                 }
-                                
+
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                if(!ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     return Page();
                 }
@@ -132,14 +153,20 @@ namespace AdAstra.Pages
 
                 Post.Reports.Add(Report);
                 await _context.SaveChangesAsync();
-                               
+
             }
             return RedirectToPage("/Post", new { postId = Post.Id });
         }
 
-        public async Task<IActionResult> OnPostLikeSubreplyAsync(int replyId,int subreplyId, int postId)
+        public async Task<IActionResult> OnPostLikeSubreplyAsync(int replyId, int subreplyId, int postId)
         {
-            Post = _context.Posts.Where(p => p.Id == postId).Include(p => p.Category).Include(p => p.Creator).Include(p => p.Replies).ThenInclude(r => r.Creator).Include(p => p.Reports).Include(p => p.Replies).ThenInclude(r=> r.Replies).FirstOrDefault();
+            Post = _context.Posts.Where(p => p.Id == postId)
+                .Include(p => p.Category)
+                .Include(p => p.Creator)
+                .Include(p => p.Replies).ThenInclude(r => r.Creator).
+                Include(p => p.Reports)
+                .Include(p => p.Replies).ThenInclude(r => r.Replies)
+                .FirstOrDefault();
 
             Reply = Post.Replies.Where(r => r.Id == replyId).FirstOrDefault();
             Subreply = Reply.Replies.Where(sr => sr.Id == subreplyId).FirstOrDefault();
@@ -157,6 +184,40 @@ namespace AdAstra.Pages
             Subreply.Likes++;
             await _context.SaveChangesAsync();
 
+            return RedirectToPage("/Post", new { postId = Post.Id });
+        }
+
+        public async Task<IActionResult> OnPostReportSubreplyAsync(int postId, int replyId, int subreplyId)
+        {
+            Post = _context.Posts.Where(p => p.Id == postId)
+                .Include(p => p.Category)
+                .Include(p => p.Creator)
+                .Include(p => p.Replies).ThenInclude(r => r.Creator)
+                .Include(p => p.Reports)
+                .Include(p => p.Replies).ThenInclude(r => r.Replies)
+                .FirstOrDefault();
+            Reply = Post.Replies.Where(r => r.Id == replyId).FirstOrDefault();
+            Subreply = Reply.Replies.Where(sr => sr.Id == subreplyId).FirstOrDefault();
+
+            if (Subreply is null)
+            {
+                return NotFound();
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            Report = new();
+            Report.ReporterId = userId;
+            Report.PostId = Post.Id;
+            Report.ReplyId = subreplyId;
+
+            Post.Reports.Add(Report);
+            await _context.SaveChangesAsync();
             return RedirectToPage("/Post", new { postId = Post.Id });
         }
     }

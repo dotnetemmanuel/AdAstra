@@ -158,9 +158,7 @@
                     {
                         <div class="card reply subreply reply-page @if(subreply.Replies.Count == 0){
 <text>sub-subreply</text>
-;
-}
-                        ">
+;}">
                             <div class="card-body">
                                 @{
                                     if (subreply.Creator.Avatar == "~/img/user.png")
@@ -179,31 +177,50 @@
                                 <p class="card-text reply-content">@subreply.Content</p>
                                 <div class="stats">
                                     <p class="card-text reply-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@subreply.Replies.Count</p>
-
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <form class="action-form" method="post" asp-page-handler="LikeSubreply" asp-route-postId="@Model.Post.Id">
-                                            <input type="hidden" name="replyId" value="@reply.Id" />
-                                            <input type="hidden" name="subreplyId" value="@subreply.Id" />
-                                            <p class="card-text reply-likes">
+                                          <form class="action-form" method="post" asp-page-handler="LikeSubreply" asp-route-postId="@Model.Post.Id">
+                                             <input type="hidden" name="replyId" value="@reply.Id" />
+                                             <input type="hidden" name="subreplyId" value="@subreply.Id" />
+                                             <p class="card-text reply-likes">
                                                 <button class="action-button" type="submit">
                                                     <img src="~/img/interactive_icons/like.svg" alt="likes" />
                                                 </button> @subreply.Likes
+                                                </p>
+                                          </form>
+                                    }
+                                    else
+                                    {
+                                            <p class="card-text reply-likes">
+                                            <button class="action-button" type="button" onclick="showAlert()">
+                                                <img src="~/img/interactive_icons/like.svg" alt="likes" />
+                                            </button> @subreply.Likes
                                             </p>
+                                    }
 
+                                    <p class="card-text reply-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@subreply.Reports.Count</p>
+
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <form class="action-form" method="post" asp-page-handler="ReportSubreply" asp-route-postId="@Model.Post.Id">
+                                            <input type="hidden" name="replyId" value="@reply.Id" />
+                                            <input type="hidden" name="subreplyId" value="@subreply.Id" />
+                                            <p class="card-text reply-reports">
+                                                <button class="action-button" type="submit">
+                                                    <img src="~/img/interactive_icons/report.svg" alt="reports" />
+                                                </button> @subreply.Reports.Count
+                                            </p>
                                         </form>
                                     }
                                     else
                                     {
-                                        <p class="card-text reply-likes">
+                                        <p class="card-text reply-reports">
                                             <button class="action-button" type="button" onclick="showAlert()">
-                                                <img src="~/img/interactive_icons/like.svg" alt="likes" />
-                                            </button> @subreply.Likes
+                                                <img src="~/img/interactive_icons/report.svg" alt="reports" />
+                                            </button> @subreply.Reports.Count
                                         </p>
                                     }
 
-
-                                    <p class="card-text reply-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@subreply.Reports.Count</p>
                                 </div>
                             </div>
                         </div>
