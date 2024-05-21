@@ -59,7 +59,7 @@ namespace AdAstra.Pages.Admin.AdminReply
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReplyExists(Reply.Id))
+                if (!ReplyExists((int)Reply.Id))
                 {
                     return NotFound();
                 }

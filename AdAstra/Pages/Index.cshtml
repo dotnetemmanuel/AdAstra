@@ -8,47 +8,51 @@
     <div class="category-list col-3">
         <div class="text-start">
             <h1><a asp-page="/Categories">Categories</a></h1>
-            @foreach (var category in Model.Categories.Where(c => c.ParentCategory == null))
+            @if (Model.Categories is not null)
             {
-                <h3>@category.Name</h3>
+                @foreach (var category in Model.Categories.Where(c => c.ParentCategory == null))
+                {
+                    <h3>@category.Name</h3>
+                }
             }
         </div>
     </div>
 
     <div class="col-9">
         <h3 class="latest">Latest</h3>
-        @foreach (var post in Model.Posts.Take(5).OrderByDescending(p => p.CreatedAt))
+        @if (Model.Posts is not null)
         {
-            <div class="card post">
-                <div class="card-body">
-                    @{
-                        var imgSrc = string.Empty;
-                        if (post.Creator.Avatar == "~/img/user.png")
-                        {
-                            imgSrc = post.Creator.Avatar;
+            @foreach (var post in Model.Posts.Take(5).OrderByDescending(p => p.CreatedAt))
+            {
+                <div class="card post">
+                    <div class="card-body">
+                        @{
+                            var imgSrc = string.Empty;
+                            if (post.Creator.Avatar == "~/img/user.png")
+                            {
+                                imgSrc = post.Creator.Avatar;
+                            }
+                            else
+                            {
+                                imgSrc = "~/userImages/" + post.Creator.Avatar;
+                            }
                         }
-                        else
-                        {
-                            imgSrc = "~/userImages/" + post.Creator.Avatar;
-                        }
-                    }
 
-                    <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar"/>
-                    <p class="card-text post-firstname">@post.Creator.Firstname</p>
-                    <p class="card-text post-date">@post.CreatedAt</p>
-                    <h5 class="card-title post-title"><a asp-route-postId="@post.Id" asp-page="/Post">@post.Title</a></h5>
-                    <div class="stats">
-                        <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments"/>@post.Replies.Count</p>
-                        <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes"/>@post.Likes</p>
-                        <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports"/>@post.Reports.Count</p>
+                        <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
+                        <p class="card-text post-firstname">@post.Creator.Firstname</p>
+                        <p class="card-text post-date">@post.CreatedAt</p>
+                        <h5 class="card-title post-title"><a asp-route-postId="@post.Id" asp-page="/Post">@post.Title</a></h5>
+                        <div class="stats">
+                            <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@post.Replies.Count</p>
+                            <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@post.Likes</p>
+                            <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@post.Reports.Count</p>
+                        </div>
                     </div>
-
-
-
                 </div>
-            </div>
-            <br />
+                <br />
+            }
         }
+
 
 
         @* <table class="table table-striped">

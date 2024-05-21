@@ -24,7 +24,13 @@ namespace AdAstra.Pages.Admin.AdminReply
 
         public IActionResult OnGet()
         {
-        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            var replies = _context.Replies
+        .Select(c => new { c.Id })
+        .ToList();
+
+            replies.Insert(0, new { Id = (int?)null});
+
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
         ViewData["ParentReplyId"] = new SelectList(_context.Replies, "Id", "Content");
         ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Title");
             return Page();

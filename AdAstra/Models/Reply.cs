@@ -4,7 +4,7 @@ namespace AdAstra.Models
 {
     public class Reply
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         //[Required]
         //[Display(Name = "Title")]

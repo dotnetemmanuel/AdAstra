@@ -6,39 +6,55 @@
 <br />
 <h1>@ViewData["Title"]</h1>
 <div class="row cat-row">
-    @foreach (var category in Model.Categories.Where(c => c.ParentCategory == null))
+
+    @if (Model.Categories is not null)
     {
-        var imgSrc = category.Name switch
+        @foreach (var category in Model.Categories.Where(c => c.ParentCategory == null))
         {
-            "Astronomy" => "~/img/icons/constellation.png",
-            "Astrophysics" => "~/img/icons/galaxy.png",
-            _ => "~/img/icons/astronauts.png"
-        };
+            var imgSrc = category.Name switch
+            {
+                "Astronomy" => "~/img/icons/planetary.png",
+                "Astrophysics" => "~/img/icons/galaxy.png",
+                "Space Exploration" => "~/img/icons/space-vehicle.png",
+                "Sci-fi" => "~/img/icons/ufo.png",
+                "Solar System" => "~/img/icons/solar-system.png",
+                "Space History" => "~/img/icons/astronauts.png",
+                "Rocket Science" => "~/img/icons/rocket.png",
+                "Earth" => "~/img/icons/earth.png",
+                "Astrophotography" => "~/img/icons/telescope.png",
+                _ => "~/img/icons/astronauts.png"
+            };
 
 
-        <div class="card col-sm-5 cat-card">
-            <div class="card-body cat-card-body">
-                <img class="cat-img" src="@Url.Content(imgSrc)" />
-                <div class="cat-card-content">
-                    <h3 class="card-title">@category.Name - <span class="cat-description">@category.Description</span></h3>
-                    <br>
-                    <ul>
-                        @foreach (var subcategory in category.Subgategories)
-                        {
-                            <li>
-                                <h6 class="card-text subcat">
-                                    <a asp-page="/Posts" asp-route-subcategoryId="@subcategory.Id">@subcategory.Name</a>
-                                    -@subcategory.Description
-                                    
-                                </h6>
-                            </li>
-                            <br />
-                        }
-                    </ul>
+            <div class="card col-sm-5 cat-card">
+                <div class="card-body cat-card-body">
+                    <img class="cat-img" src="@Url.Content(imgSrc)" />
+                    <div class="cat-card-content">
+                        <h3 class="card-title">@category.Name - <span class="cat-description">@category.Description</span></h3>
+                        <br>
+                        <ul>
+                            @if (category.Subgategories is not null)
+                            {
+                                @foreach (var subcategory in category.Subgategories)
+                                {
+                                    <li>
+                                        <h6 class="card-text subcat">
+                                            <a asp-page="/Posts" asp-route-subcategoryId="@subcategory.Id">@subcategory.Name</a>
+                                            -@subcategory.Description
+
+                                        </h6>
+                                    </li>
+                                    <br />
+                                }
+                            }
+
+                        </ul>
+                    </div>
+
+
                 </div>
-
-
             </div>
-        </div>
+        }
     }
+
 </div>

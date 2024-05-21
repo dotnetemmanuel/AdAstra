@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Reply.ParentReplyId" class="control-label"></label>
-                <select asp-for="Reply.ParentReplyId" class ="form-control" asp-items="ViewBag.ParentReplyId"></select>
+                <select asp-for="Reply.ParentReplyId" class="form-control" asp-items="ViewBag.ParentReplyId"><option value="">Select a parent category (optional)</option></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

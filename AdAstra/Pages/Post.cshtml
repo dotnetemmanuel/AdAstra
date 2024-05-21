@@ -3,66 +3,138 @@
 @{
     ViewData["Title"] = "@Model.Post.Title";
     var imgSrc = string.Empty;
-
 }
-<br />  
-<h1>Post thread - @Model.Post.Title</h1>
 <br />
-<div class="card post post-page">
-    <div class="card-body">
-        @{
-            imgSrc = string.Empty;
-            if (Model.Post.Creator.Avatar == "~/img/user.png")
-            {
-                imgSrc = Model.Post.Creator.Avatar;
-            }
-            else
-            {
-                imgSrc = "~/userImages/" + Model.Post.Creator.Avatar;
-            }
-        }
-
-        <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
-        <p class="card-text post-firstname">@Model.Post.Creator.Firstname</p>
-        <p class="card-text post-date">@Model.Post.CreatedAt</p>
-        <h5 class="card-title post-title"><a asp-route-postId="@Model.Post.Id" asp-page="/Post">@Model.Post.Title</a></h5>
-        <p class="card-text post-content">@Model.Post.Content</p>
-        <div class="stats">
-            <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@Model.Post.Replies.Count</p>
-            <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@Model.Post.Likes</p>
-            <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@Model.Post.Reports.Count</p>
-        </div>
-
-
-
-    </div>
-
-</div>
-@foreach (var reply in Model.Post.Replies)
+@if (Model.Post is not null)
 {
-    <div class="card reply reply-page">
+    <h1>Post thread - @Model.Post.Title</h1>
+    <br />
+    <div class="card post post-page">
         <div class="card-body">
             @{
-
-                if (reply.Creator.Avatar == "~/img/user.png")
+                imgSrc = string.Empty;
+                if (Model.Post.Creator.Avatar == "~/img/user.png")
                 {
-                    imgSrc = reply.Creator.Avatar;
+                    imgSrc = Model.Post.Creator.Avatar;
                 }
                 else
                 {
-                    imgSrc = "~/userImages/" + reply.Creator.Avatar;
+                    imgSrc = "~/userImages/" + Model.Post.Creator.Avatar;
                 }
             }
 
-            <img class="reply-round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
-            <p class="card-text reply-firstname">@reply.Creator.Firstname</p>
-            <p class="card-text reply-date">@reply.CreatedAt</p>
-            <p class = "card-text reply-content">@reply.Content</p>
+            <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
+            <p class="card-text post-firstname">@Model.Post.Creator.Firstname</p>
+            <p class="card-text post-date">@Model.Post.CreatedAt</p>
+            <h5 class="card-title post-title"><a asp-route-postId="@Model.Post.Id" asp-page="/Post">@Model.Post.Title</a></h5>
+            <p class="card-text post-content">@Model.Post.Content</p>
             <div class="stats">
-                <p class="card-text reply-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@reply.Replies.Count</p>
-                <p class="card-text reply-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@reply.Likes</p>
-                <p class="card-text reply-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@reply.Reports.Count</p>
+                <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@Model.Post.Replies.Count</p>
+                <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@Model.Post.Likes</p>
+                <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@Model.Post.Reports.Count</p>
             </div>
         </div>
+
     </div>
+    @if (Model.Post.Replies is not null)
+    {
+        @foreach (var reply in Model.Post.Replies)
+        {
+            @if (reply.ParentReplyId is null)
+            {
+                <div class="card reply reply-page">
+                    <div class="card-body">
+                        @{
+                            if (reply.Creator.Avatar == "~/img/user.png")
+                            {
+                                imgSrc = reply.Creator.Avatar;
+                            }
+                            else
+                            {
+                                imgSrc = "~/userImages/" + reply.Creator.Avatar;
+                            }
+                        }
+
+                        <img class="reply-round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
+                        <p class="card-text reply-firstname">@reply.Creator.Firstname</p>
+                        <p class="card-text reply-date">@reply.CreatedAt</p>
+                        <p class="card-text reply-content">@reply.Content</p>
+                        <div class="stats">
+                            <p class="card-text reply-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@reply.Replies.Count</p>
+                            <p class="card-text reply-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@reply.Likes</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form class="action-form" method="post" asp-page-handler="ReportReply" asp-route-postId="@Model.Post.Id">
+                                    <input type="hidden" name="id" value="@reply.Id" />
+                                <p class="card-text reply-reports">
+                                
+                                <button class="action-button" type="submit"><img src="~/img/interactive_icons/report.svg" alt="reports" />
+                                    </button> @reply.Reports.Count
+                                </p>
+                                </form>
+                            }
+                            else
+                            {
+                                <p class="card-text reply-reports">
+                                    
+                                    <button class="action-button" type="button" onclick="showAlert()">
+                                        <img src="~/img/interactive_icons/report.svg" alt="reports" />
+                                    </button> @reply.Reports.Count
+                                </p>
+                            }
+
+                            
+                                                        
+                            
+                                    
+                        </div>
+                    </div>
+                </div>
+            }
+
+            if (reply.Replies is not null)
+            {
+                @foreach (var subreply in reply.Replies)
+                {
+                    if (subreply.ParentReplyId == reply.Id)
+                    {
+                        <div class="card reply subreply reply-page">
+                            <div class="card-body">
+                                @{
+                                    if (subreply.Creator.Avatar == "~/img/user.png")
+                                    {
+                                        imgSrc = subreply.Creator.Avatar;
+                                    }
+                                    else
+                                    {
+                                        imgSrc = "~/userImages/" + subreply.Creator.Avatar;
+                                    }
+                                }
+
+                                <img class="reply-round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
+                                <p class="card-text reply-firstname">@subreply.Creator.Firstname</p>
+                                <p class="card-text reply-date">@subreply.CreatedAt</p>
+                                <p class="card-text reply-content">@subreply.Content</p>
+                                <div class="stats">
+                                    <p class="card-text reply-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@subreply.Replies.Count</p>
+                                    <p class="card-text reply-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@subreply.Likes</p>
+                                    <p class="card-text reply-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@subreply.Reports.Count</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        }
+    }
 }
+
+<script type="text/javascript">
+    function showAlert(){
+        alert("You must be logged in to perform this action.");
+    }
+        </script>
+
+
+
+

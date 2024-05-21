@@ -66,6 +66,14 @@ a {
         cursor: pointer;
     }
 
+.action-button{
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    margin-right:.5rem;
+    
+}
+
 .avatar {
     width: 50px;
     border-radius: 50px;
@@ -374,6 +382,10 @@ li {
     .reply-replies img, .reply-likes img, .reply-reports img {
         margin-right: 10px;
     }
+
+.subreply{
+    margin-left: 10rem;
+}
 
 /*======================================*/
 
