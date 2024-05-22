@@ -4,7 +4,11 @@
 @{
     ViewData["Title"] = "Posts";
     var imgSrc = string.Empty;
-    var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    string userId = string.Empty;
+    if (User.Identity.IsAuthenticated)
+    {
+        userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    }
     var category = Model.Category;
 
 }
@@ -14,38 +18,39 @@
 
     @if (User.Identity.IsAuthenticated)
     {
-        <button class="btn btn-dark create-post-btn" type="button" data-bs-toggle="collapse" data-bs-target="#createPostForm" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-dark category_create-post-btn" type="button" data-bs-toggle="collapse" data-bs-target="#createPostForm" aria-expanded="false" aria-controls="collapseExample">
             Create Post
         </button>
 
-        <form class="collapse" id="createPostForm" method="post" >
+        <form class="collapse create-post-form" id="createPostForm" method="post">
             <h3>Creating post in @Model.Category.Name</h3>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Post.Title" class="control-label"></label>
-                <input asp-for="Post.Title" class="form-control" />
+                <label asp-for="Post.Title" class="control-label create-post-label"></label>
+                <input asp-for="Post.Title" class="form-control create-post" />
                 <span asp-validation-for="Post.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Post.Content" class="control-label"></label>
-                <input asp-for="Post.Content" class="form-control" />
+                <label asp-for="Post.Content" class="control-label create-post-label"></label>
+                <textarea rows="5" asp-for="Post.Content" class="form-control create-post create-post-content"></textarea> 
                 <span asp-validation-for="Post.Content" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Post.CategoryId" value="@Model.Category.Id" />
             <input type="hidden" asp-for="Post.UserId" value="@userId" />
             @* <div class="form-group">
-                <label hidden asp-for="Post.CategoryId" class="control-label"></label>
-                <input type="hidden" asp-for="Post.CategoryId"/>
-                <select hidden asp-for="Post.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-            </div> *@
+        <label hidden asp-for="Post.CategoryId" class="control-label"></label>
+        <input type="hidden" asp-for="Post.CategoryId"/>
+        <select hidden asp-for="Post.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+        </div> *@
             @* <input type="hidden" name="userId" value="@userId" /> *@
             @* <div class="form-group">
-                <input type="hidden" asp-for="Post.UserId"/>
-                <label hidden asp-for="Post.UserId" class="control-label"></label>
-                <select hidden asp-for="Post.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-            </div> *@
+        <input type="hidden" asp-for="Post.UserId"/>
+        <label hidden asp-for="Post.UserId" class="control-label"></label>
+        <select hidden asp-for="Post.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+        </div> *@
+        <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary create-post-btn" />
             </div>
         </form>
     }

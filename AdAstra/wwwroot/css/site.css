@@ -3,6 +3,7 @@
     --border-radius: 6px;
     --border-radius-avatar: 50px;
     --box-shadow: 5px 5px 10px #0a0c10, -5px -5px 10px #2a3242;
+    --box-shadow-input: inset 5px 5px 10px #5a5a5a, inset -5px -5px 10px #ffffff;
     --pink: #F92672;
     --light-blue: #66D9EF;
     --yellow: #FFFF00;
@@ -81,22 +82,6 @@ a {
 .checkbox .form-label {
     color: white;
 }
-
-.category_create-post {
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: auto 12rem;
-}
-
-.create-post-btn {
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    grid-row: 1;
-    grid-column: 2;
-    font-size: 1.25rem;
-}
-
-
 
 .category-name {
     grid-row: 1;
@@ -222,6 +207,54 @@ li {
 
 /*=================== POST ===================*/
 
+.category_create-post {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto 12rem;
+    row-gap: 1rem;
+}
+
+.category_create-post-btn {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    grid-row: 1;
+    grid-column: 2;
+    font-size: 1.25rem;
+}
+
+.create-post-form{
+    grid-column:1 /span 2;
+    text-align: right;
+    width: 50%;
+    justify-self: end;
+}
+
+.create-post {
+    border: none;
+    border-radius: var(--border-radius);
+    background: #e0e0e0;
+    box-shadow: var(--box-shadow-input);
+}
+
+.create-post-btn{
+    background-color: var(--dark);
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.create-post-btn:hover {
+    background-color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-input);
+    color: var(--dark);
+}
+
+.create-post-label{
+    color: white;
+}
+
 .post {
     display: grid;
     align-content: center;
@@ -243,8 +276,6 @@ li {
 .post-page {
     margin-left: 0;
 }
-
-
 
 .round-avatar {
     border-radius: var(--border-radius-avatar);
