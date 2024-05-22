@@ -26,6 +26,13 @@ namespace AdAstra.Pages
         public Models.Reply Reply { get; set; }
         public Models.Reply Subreply { get; set; }
         public Areas.Identity.Data.AdAstraUser AdastraUser { get; set; }
+        public Models.Category Category { get; set; }
+
+        [BindProperty]
+        public Models.Reply PostReply { get; set; }
+
+        [BindProperty]
+        public Models.Reply ReplySubreply { get; set; }
 
 
         public async Task OnGetAsync(int postId)
@@ -43,6 +50,21 @@ namespace AdAstra.Pages
 
                 Reports = Post.Reports.Where(r => r.ReplyId == null).ToList();
             }
+        }
+
+        public async Task<IActionResult> OnPostCreateReplyAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            PostReply.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            _context.Replies.Add(PostReply);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Post", new { postId = PostReply.PostId });
         }
 
         public async Task<IActionResult> OnPostLikePostAsync(int postId)
@@ -94,6 +116,22 @@ namespace AdAstra.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Post", new { postId = Post.Id });
+        }
+
+        //Need to implement ParentReply!!!!!!!!!!!!!!
+        public async Task<IActionResult> OnPostCreateSubreplyAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            ReplySubreply.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            _context.Replies.Add(ReplySubreply);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Post", new { postId = ReplySubreply.PostId });
         }
 
         public async Task<IActionResult> OnPostLikeReplyAsync(int id, int postId)
