@@ -34,6 +34,9 @@ namespace AdAstra.Pages
         [BindProperty]
         public Models.Reply ReplySubreply { get; set; }
 
+        [BindProperty]
+        public Models.Reply SubreplySubreply { get; set; }
+
 
         public async Task OnGetAsync(int postId)
         {
@@ -52,14 +55,30 @@ namespace AdAstra.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostCreateReplyAsync()
+        public async Task<IActionResult> OnPostCreateReplyAsync(int postId, string userId, string content)
         {
+            Post = _context.Posts
+                .Where(p => p.Id == postId)
+                .Include(p => p.Category)
+                .Include(p => p.Creator)
+                .Include(p => p.Replies).ThenInclude(r => r.Creator)
+                .Include(p => p.Reports)
+                .FirstOrDefault();
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            PostReply.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
+
+
+            PostReply = new()
+            {
+                UserId = userId,
+                PostId = postId,
+                Content = PostReply.Content
+            };
+            //PostReply.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             _context.Replies.Add(PostReply);
 
             await _context.SaveChangesAsync();
@@ -118,14 +137,27 @@ namespace AdAstra.Pages
             return RedirectToPage("/Post", new { postId = Post.Id });
         }
 
-        //Need to implement ParentReply!!!!!!!!!!!!!!
-        public async Task<IActionResult> OnPostCreateSubreplyAsync()
+        public async Task<IActionResult> OnPostCreateSubreplyAsync(int postId, string userId, int replyId, string content)
         {
+            Post = _context.Posts.Where(p => p.Id == postId)
+               .Include(p => p.Category)
+               .Include(p => p.Creator)
+               .Include(p => p.Replies).ThenInclude(r => r.Creator)
+               .Include(r => r.Replies).ThenInclude(r => r.Reports)
+               .Include(p => p.Reports).FirstOrDefault();
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            ReplySubreply.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ReplySubreply = new()
+            {
+                PostId = postId,
+                UserId = userId,
+                ParentReplyId = replyId,
+                Content = ReplySubreply.Content
+            };
 
             _context.Replies.Add(ReplySubreply);
 
@@ -194,6 +226,36 @@ namespace AdAstra.Pages
 
             }
             return RedirectToPage("/Post", new { postId = Post.Id });
+        }
+
+        public async Task<IActionResult> OnPostCreateSubreplySubreplyAsync(int postId, string userId, int subreplyId, string content)
+        {
+            Post = _context.Posts.Where(p => p.Id == postId)
+               .Include(p => p.Category)
+               .Include(p => p.Creator)
+               .Include(p => p.Replies).ThenInclude(r => r.Creator)
+               .Include(r => r.Replies).ThenInclude(r => r.Reports)
+               .Include(p => p.Reports).FirstOrDefault();
+                        
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            SubreplySubreply = new()
+            {
+                PostId = postId,
+                UserId = userId,
+                ParentReplyId = subreplyId,
+                Content = SubreplySubreply.Content
+            };
+
+            _context.Replies.Add(SubreplySubreply);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Post", new { postId = SubreplySubreply.PostId });
         }
 
         public async Task<IActionResult> OnPostLikeSubreplyAsync(int replyId, int subreplyId, int postId)

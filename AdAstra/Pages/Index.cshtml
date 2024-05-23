@@ -22,7 +22,7 @@
         <h3 class="latest">Latest</h3>
         @if (Model.Posts is not null)
         {
-            @foreach (var post in Model.Posts.Take(5).OrderByDescending(p => p.CreatedAt))
+            @foreach (var post in Model.Posts.OrderByDescending(p => p.CreatedAt).Take(5))
             {
                 <div class="card post">
                     <div class="card-body">
