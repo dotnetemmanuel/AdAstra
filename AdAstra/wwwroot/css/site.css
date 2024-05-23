@@ -464,8 +464,42 @@ li {
     margin-left: 15rem;
 }
 
-/*======================================*/
+/*===============PROFILE================*/
 
+.profile-card{
+    margin-left: 0;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.profile-card-body{
+    display: grid;
+    row-gap: 1rem;
+    column-gap: 2rem;
+    justify-content:start;
+    grid-template-columns: 150px, 1fr;
+    grid-template-rows: 10px, auto;
+}
+
+.profile-avatar{
+    width: 150px;
+    border-radius: calc(var(--border-radius-avatar)*2);
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+}
+
+.profile-message-icon{
+    justify-self: center;
+    grid-column: 1;
+    grid-row: 2;
+    width: 30px;
+}
+
+.profile-user-info {
+    grid-column: 2;
+}
+/*======================================*/
 .latest {
     font-size: 1.5rem;
     margin-left: 1rem;

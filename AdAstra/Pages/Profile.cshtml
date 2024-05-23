@@ -1,0 +1,92 @@
+﻿@page
+@using System.Security.Claims
+
+@model AdAstra.Pages.ProfileModel
+@{
+    string senderId = string.Empty;
+    if (User.Identity.IsAuthenticated)
+    {
+        senderId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    }
+    string recipientId = Model.User.Id;
+}
+
+<div class="card profile-card">
+    <div class="card-body profile-card-body">
+        @{
+            var imgSrc = string.Empty;
+            if (Model.User.Avatar == "~/img/user.png")
+            {
+                imgSrc = Model.User.Avatar;
+            }
+            else
+            {
+                imgSrc = "~/userImages/" + Model.User.Avatar;
+            }
+        }
+
+        <img class="round-avatar avatar profile-avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <button class="action-button profile-message-icon" type="button" data-bs-toggle="collapse" data-bs-target="#sendMessageForm" aria-expanded="false" aria-controls="collapseExample">
+                <img class="profile-message-icon" src="~/img/interactive_icons/message.svg" />
+            </button>
+        }
+        else
+        {
+            <button class="action-button profile-message-icon" type="button" onclick="showAlert()">
+                <img class="profile-message-icon" src="~/img/interactive_icons/message.svg" />
+            </button>
+        }
+
+
+        <div class="profile-user-info">
+            <h2 class="profile-user-name">@Model.User.Firstname @Model.User.Lastname</h2>
+            <h5>Member since: @Model.User.CreatedAt</h5>
+            <h5>Posts: @Model.User.CreatedPosts.Count</h5>
+            <h5>Posts: @Model.User.CreatedReplies.Count</h5>
+
+            @{
+                var totalCount = Model.User.CreatedPosts.Count + Model.User.CreatedReplies.Count;
+                string status = totalCount switch
+                {
+                    <= 10 => "Novice",
+                    <= 50 => "Explorer",
+                    <= 100 => "Pioneer",
+                    <= 200 => "Voyager",
+                    > 200 => "Astronaut"
+                };
+            }
+            <h5>Status: @status</h5>
+        </div>
+    </div>
+</div>
+
+<div class="create-reply-form-container">
+    <form class="collapse create-reply-form" id="sendMessageForm" method="post" asp-route-senderId="@senderId" asp-route-recipientId="@recipientId">
+        <div class="form-group">
+            <label asp-for="Message.Title" class="control-label create-post-label"></label>
+            <input asp-for="Message.Title" class="form-control create-reply create-reply-content">
+            <span asp-validation-for="Message.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Message.Content" class="control-label create-post-label"></label>
+            <textarea rows="5" cols="50" asp-for="Message.Content" class="form-control create-reply create-reply-content"></textarea>
+            <span asp-validation-for="Message.Content" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="Message.SenderId" value="@senderId" />
+        <input type="hidden" asp-for="Message.RecipientId" value="@recipientId" />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary create-reply-btn" />
+        </div>
+        <br>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function showAlert() {
+        alert("You must be logged in to perform this action.");
+    }
+</script>

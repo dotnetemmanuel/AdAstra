@@ -32,7 +32,7 @@
             }
 
             <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
-            <p class="card-text post-firstname">@Model.Post.Creator.Firstname</p>
+            <a asp-page="/Profile" asp-route-userId="@Model.Post.Creator.Id" class="card-text post-firstname">@Model.Post.Creator.Firstname</a>
             <p class="card-text post-date">@Model.Post.CreatedAt</p>
             <h5 class="card-title post-title"><a asp-route-postId="@Model.Post.Id" asp-page="/Post">@Model.Post.Title</a></h5>
             <p class="card-text post-content">@Model.Post.Content</p>
@@ -143,7 +143,7 @@
                         }
 
                         <img class="reply-round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
-                        <p class="card-text reply-firstname">@reply.Creator.Firstname</p>
+                        <a asp-page="/Profile" asp-route-userId="@reply.Creator.Id" class="card-text reply-firstname">@reply.Creator.Firstname</a>
                         <p class="card-text reply-date">@reply.CreatedAt</p>
                         <p class="card-text reply-content">@reply.Content</p>
                         <div class="stats">
@@ -259,7 +259,7 @@
                                 }
 
                                 <img class="reply-round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
-                                <p class="card-text reply-firstname">@subreply.Creator.Firstname</p>
+                                <a asp-page="/Profile" asp-route-userId="@subreply.Creator.Id"  class="card-text reply-firstname">@subreply.Creator.Firstname</a>
                                 <p class="card-text reply-date">@subreply.CreatedAt</p>
                                 <p class="card-text reply-content">@subreply.Content</p>
                                 <div class="stats">
@@ -303,8 +303,7 @@
                                                 <img src="~/img/interactive_icons/like.svg" alt="likes" />
                                             </button> @subreply.Likes
                                         </p>
-                                    }
-                                                                       
+                                    }                                                                       
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
@@ -326,14 +325,12 @@
                                             </button> @subreply.Reports.Count
                                         </p>
                                     }
-
                                 </div>
                             </div>
                         </div>
                     }
                     <div class="create-reply-form-container">
                         <form class="collapse create-reply-form" id="createSubreplySubreplyForm_@subreply.Id" asp-page-handler="CreateSubreplySubreply" asp-route-postId="@postId" asp-route-userId="@userId" asp-route-subreplyId="@subreply.Id" asp-route-content="SubreplySubreply.Content">
-
                             <div class="form-group">
                                 @* <label asp-for="Reply.Content" class="control-label create-post-label"></label> *@
                                 <textarea rows="5" cols="50" asp-for="SubreplySubreply.Content" class="form-control create-reply create-reply-content"></textarea>

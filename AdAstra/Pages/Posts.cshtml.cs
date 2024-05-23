@@ -41,8 +41,7 @@ namespace AdAstra.Pages
         }
 
         public async Task<IActionResult> OnPostAsync()
-        {
-           
+        {                    
             if (!ModelState.IsValid)
             {
                 return Page();

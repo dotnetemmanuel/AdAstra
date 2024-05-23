@@ -77,7 +77,7 @@
                 }
 
                 <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
-                <p class="card-text post-firstname">@post.Creator.Firstname</p>
+                <a asp-page="/Profile" asp-route-userId="@post.Creator.Id" class="card-text post-firstname">@post.Creator.Firstname</a>
                 <p class="card-text post-date">@post.CreatedAt</p>
                 <h5 class="card-title post-title"><a asp-route-postId="@post.Id" asp-page="/Post">@post.Title</a></h5>
                 <div class="stats">
