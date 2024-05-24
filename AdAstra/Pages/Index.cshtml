@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="row">
+<div class="row index-row">
     <div class="category-list col-3">
         <div class="text-start">
             <h1><a asp-page="/Categories">Categories</a></h1>
@@ -18,14 +18,14 @@
         </div>
     </div>
 
-    <div class="col-9">
+    <div class="col-9 index-col-9">
         <h3 class="latest">Latest</h3>
         @if (Model.Posts is not null)
         {
             @foreach (var post in Model.Posts.OrderByDescending(p => p.CreatedAt).Take(5))
             {
-                <div class="card post">
-                    <div class="card-body">
+                <div class="card cat-list-card post">
+                    <div class="card-body index-post">
                         @{
                             var imgSrc = string.Empty;
                             if (post.Creator.Avatar == "~/img/user.png")

@@ -33,7 +33,7 @@ public class AdAstraContext : IdentityDbContext<AdAstraUser>
         .HasOne(p => p.Category)
         .WithMany(c => c.Posts)
         .HasForeignKey(p => p.CategoryId)
-        .OnDelete(DeleteBehavior.Restrict); // Change the delete behavior to Restrict
+        .OnDelete(DeleteBehavior.Restrict);
 
         builder.Entity<Reply>()
         .HasOne(r => r.Post)
