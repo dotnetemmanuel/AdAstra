@@ -236,14 +236,14 @@ li {
     box-shadow: var(--box-shadow-input);
 }
 
-.create-post-btn {
+.create-btn {
     background-color: var(--dark);
     border: none;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
 }
 
-    .create-post-btn:hover {
+    .create-btn:hover {
         background-color: white;
         border: none;
         border-radius: var(--border-radius);
@@ -499,6 +499,19 @@ li {
 .profile-user-info {
     grid-column: 2;
 }
+
+/*===============Messages================*/
+
+.message-card{
+    margin-left: 0;
+    width: 100%
+}
+
+.message-avatar{
+   
+    align-self: center;
+}
+
 /*======================================*/
 .latest {
     font-size: 1.5rem;

@@ -108,7 +108,7 @@
         <form class="collapse create-reply-form" id="createReplyForm" method="post" asp-page-handler="CreateReply" asp-route-postId="@postId" asp-route-userId="@userId" asp-route-content="PostReply.Content">
 
             <div class="form-group">
-                <label asp-for="PostReply.Content" class="control-label create-post-label"></label>
+                @* <label asp-for="PostReply.Content" class="control-label create-post-label"></label> *@
                 <textarea rows="5" cols="50" asp-for="PostReply.Content" class="form-control create-reply create-reply-content"></textarea>
                 <span asp-validation-for="PostReply.Content" class="text-danger"></span>
             </div>
@@ -116,7 +116,7 @@
             <input type="hidden" asp-for="PostReply.PostId" value="@postId" />
             <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary create-reply-btn" />
+                <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" />
             </div>
             <br>
         </form>
@@ -228,7 +228,7 @@
                     <input type="hidden" asp-for="ReplySubreply.ParentReplyId" value="@reply.Id" />
                     <br />
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary create-reply-btn" />
+                        <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" />
                     </div>
                     <br>
                 </form>
@@ -341,7 +341,7 @@
                             <input type="hidden" asp-for="SubreplySubreply.ParentReplyId" value="@subreply.ParentReply.Id" />
                             <br />
                             <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary create-reply-btn" />
+                                <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" />
                             </div>
                             <br>
                         </form>

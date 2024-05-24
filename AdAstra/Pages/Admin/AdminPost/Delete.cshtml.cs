@@ -29,7 +29,12 @@ namespace AdAstra.Pages.Admin.AdminPost
                 return NotFound();
             }
 
-            var post = await _context.Posts.Include(c => c.Creator).Include(c => c.Category).FirstOrDefaultAsync(m => m.Id == id);
+            var post = await _context.Posts
+                .Include(c => c.Creator)
+                .Include(c => c.Category)
+                .Include(p => p.Replies)
+                .Include(p => p.Reports)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (post == null)
             {

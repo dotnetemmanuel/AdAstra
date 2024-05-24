@@ -1,0 +1,88 @@
+﻿@page
+@model AdAstra.Pages.MessagesModel
+@{
+}
+
+<div class="card profile-card">
+    <div class="card-body profile-card-body">
+        @{
+            var imgSrc = string.Empty;
+            if (Model.User.Avatar == "~/img/user.png")
+            {
+                imgSrc = Model.User.Avatar;
+            }
+            else
+            {
+                imgSrc = "~/userImages/" + Model.User.Avatar;
+            }
+        }
+
+        <img class="round-avatar avatar profile-avatar message-avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
+
+        <div class="profile-user-info">
+            <h2 class="profile-user-name">@Model.User.Firstname @Model.User.Lastname</h2>
+            <h5>Member since: @Model.User.CreatedAt</h5>
+            <h5>Posts: @Model.User.CreatedPosts.Count</h5>
+            <h5>Posts: @Model.User.CreatedReplies.Count</h5>
+
+            @{
+                var totalCount = Model.User.CreatedPosts.Count + Model.User.CreatedReplies.Count;
+                string status = totalCount switch
+                {
+                    <= 10 => "Novice",
+                    <= 50 => "Explorer",
+                    <= 100 => "Pioneer",
+                    <= 200 => "Voyager",
+                    > 200 => "Astronaut"
+                };
+            }
+            <h5>Status: @status</h5>
+        </div>
+    </div>
+</div>
+
+<h2>Received (@Model.Received.Count)<span><a data-bs-toggle="collapse" href="#receivedMessages" role="button"><img src="~/img/interactive_icons/arrow-down.svg" /></a></span></h2>
+<div class="collapse" id="receivedMessages">
+    @if (Model.Received.Count is not 0)
+    {
+
+        <div class="card message-card">
+            <div class="card-body">
+
+                @foreach (var receivedMessage in Model.Received)
+                {
+                    <p class="card-text">From: @receivedMessage.Sender.UserName - @receivedMessage.SentAt</p>
+                    <h4 class="card-title">@receivedMessage.Title</h4>
+                    <p class="card-text">&nbsp;&nbsp;@receivedMessage.Content</p>
+                }
+            </div>
+        </div>
+            }
+    else
+    {
+        <h3>No messages</h3>
+    }
+</div>
+
+<h2>Sent (@Model.Sent.Count)<span><a data-bs-toggle="collapse" href="#sentMessages" role="button"><img src="~/img/interactive_icons/arrow-down.svg" /></a></span></h2>
+<div class="collapse" id="sentMessages">
+    @if (Model.Sent.Count is not 0)
+    {
+
+        <div class="card message-card">
+            <div class="card-body">
+
+                @foreach (var sentMessage in Model.Sent)
+                {
+                    <p class="card-text">To: @sentMessage.Recepient.UserName - @sentMessage.SentAt</p>
+                    <h4 class="card-title">@sentMessage.Title</h4>
+                    <p class="card-text">&nbsp;&nbsp;@sentMessage.Content</p>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>No messages</h3>
+    }
+</div>

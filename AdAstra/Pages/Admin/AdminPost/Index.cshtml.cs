@@ -25,7 +25,10 @@ namespace AdAstra.Pages.Admin.AdminPost
         {
             Post = await _context.Posts
                 .Include(p => p.Category)
-                .Include(p => p.Creator).ToListAsync();
+                .Include(p => p.Creator)
+                .Include(p => p.Replies)
+                .Include(p => p.Reports)
+                .ToListAsync();
         }
     }
 }

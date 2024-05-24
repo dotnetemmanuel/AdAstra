@@ -26,8 +26,8 @@ namespace AdAstra.Pages
 
         public async Task OnGet(string userId)
         {
-            User = _userManager.Users.
-                Where(u => u.Id == userId)
+            User = _userManager.Users
+                .Where(u => u.Id == userId)
                 .Include(u => u.CreatedPosts)
                 .Include(u => u.CreatedReplies)
                 .FirstOrDefault();
@@ -41,7 +41,7 @@ namespace AdAstra.Pages
             if (!ModelState.IsValid)
             {
                 return Page();
-            }                       
+            }
 
             Message.SenderId = senderId;
             Message.RecipientId = recipientId;

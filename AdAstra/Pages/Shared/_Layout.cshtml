@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
 @inject IAuthorizationService AuthorizationService
 
 <!DOCTYPE html>
@@ -43,6 +44,7 @@
                                 <a class="nav-link text-light" asp-area="" asp-page="/Admin/Index">Admin</a>
                             </li>
                         }
+                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
