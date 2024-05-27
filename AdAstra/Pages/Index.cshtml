@@ -41,7 +41,7 @@
                         <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
                         <a asp-page="/Profile" asp-route-userId="@post.Creator.Id" class="card-text post-firstname">@post.Creator.Firstname</a>
                         <p class="card-text post-date">@post.CreatedAt</p>
-                        <h5 class="card-title post-title"><a asp-route-postId="@post.Id" asp-page="/Post">@post.Title</a></h5>
+                        <h5 class="card-title post-title"><a asp-route-postId="@post.Id" asp-page="/Post">@Helpers.ReplaceProphanities(post.Title)</a></h5>
                         <div class="stats">
                             <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@post.Replies.Count</p>
                             <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@post.Likes</p>

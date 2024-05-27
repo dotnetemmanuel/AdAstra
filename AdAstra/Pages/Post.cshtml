@@ -15,7 +15,7 @@
 <br />
 @if (Model.Post is not null)
 {
-    <h1>@Model.Post.Title</h1>
+    <h1>@Helpers.ReplaceProphanities(Model.Post.Title)</h1>
     <br />
     <div class="card post post-page">
         <div class="card-body">
@@ -34,9 +34,9 @@
             <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
             <a asp-page="/Profile" asp-route-userId="@Model.Post.Creator.Id" class="card-text post-firstname">@Model.Post.Creator.Firstname</a>
             <p class="card-text post-date">@Model.Post.CreatedAt</p>
-            <h5 class="card-title post-title"><a asp-route-postId="@Model.Post.Id" asp-page="/Post">@Model.Post.Title</a></h5>
-            <p class="card-text post-content">@Model.Post.Content</p>
-            <div class="stats">
+            <h5 class="card-title post-title"><a asp-route-postId="@Model.Post.Id" asp-page="/Post">@Helpers.ReplaceProphanities(Model.Post.Title)</a></h5>
+            <p class="card-text post-content">@Helpers.ReplaceProphanities(Model.Post.Content)</p>
+            <div class="stats post-stats">
 
 
                 @if (User.Identity.IsAuthenticated)
@@ -116,7 +116,10 @@
             <input type="hidden" asp-for="PostReply.PostId" value="@postId" />
             <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" />
+                @* <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" /> *@
+                <button type="submit" class="btn btn-primary create-reply-btn create-btn">
+                    <img src="~/img/interactive_icons/send.svg"/>
+                </button>
             </div>
             <br>
         </form>
@@ -145,8 +148,8 @@
                         <img class="reply-round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
                         <a asp-page="/Profile" asp-route-userId="@reply.Creator.Id" class="card-text reply-firstname">@reply.Creator.Firstname</a>
                         <p class="card-text reply-date">@reply.CreatedAt</p>
-                        <p class="card-text reply-content">@reply.Content</p>
-                        <div class="stats">
+                        <p class="card-text reply-content">@Helpers.ReplaceProphanities(reply.Content)</p>
+                        <div class="stats reply-stats">
 
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -228,7 +231,10 @@
                     <input type="hidden" asp-for="ReplySubreply.ParentReplyId" value="@reply.Id" />
                     <br />
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" />
+                        @* <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" /> *@
+                        <button type="submit" class="btn btn-primary create-reply-btn create-btn">
+                            <img src="~/img/interactive_icons/send.svg" />
+                        </button>
                     </div>
                     <br>
                 </form>
@@ -243,9 +249,16 @@
                     {
                         var depth = Helpers.GetReplyDepth(subreply);
                         var replyClass = "sub-subreply";
+                        var subreplyClass = "subreply-subreply";
 
-                        <div class="card reply subreply reply-page @{if(depth >= 2){
-<text>@replyClass</text>}}">
+                        <div class="card reply subreply-page reply-page @{if(depth >= 1){
+    <text>@replyClass</text>
+}
+} @{
+    if(depth>2){
+    <text>@subreplyClass</text>
+}
+}">
                             <div class="card-body">
                                 @{
                                     if (subreply.Creator.Avatar == "~/img/user.png")
@@ -261,8 +274,8 @@
                                 <img class="reply-round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
                                 <a asp-page="/Profile" asp-route-userId="@subreply.Creator.Id"  class="card-text reply-firstname">@subreply.Creator.Firstname</a>
                                 <p class="card-text reply-date">@subreply.CreatedAt</p>
-                                <p class="card-text reply-content">@subreply.Content</p>
-                                <div class="stats">
+                                                        <p class="card-text reply-content">@Helpers.ReplaceProphanities(subreply.Content)</p>
+                                <div class="stats subreply-stats">
                                     
                                     @if (User.Identity.IsAuthenticated)
                                     {
@@ -341,7 +354,10 @@
                             <input type="hidden" asp-for="SubreplySubreply.ParentReplyId" value="@subreply.ParentReply.Id" />
                             <br />
                             <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" />
+                                @* <input type="submit" value="Create" class="btn btn-primary create-reply-btn create-btn" /> *@
+                                <button type="submit" class="btn btn-primary create-reply-btn create-btn">
+                                    <img src="~/img/interactive_icons/send.svg" />
+                                </button>
                             </div>
                             <br>
                         </form>
