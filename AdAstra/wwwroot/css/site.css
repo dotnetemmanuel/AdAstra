@@ -291,6 +291,10 @@ li {
         color: var(--dark);
     }
 
+        .create-btn:hover img {
+            filter: brightness(0) saturate(100%) invert(9%) sepia(11%) saturate(1578%) hue-rotate(182deg) brightness(98%) contrast(93%);
+        }
+
 .create-post-label {
     color: white;
 }

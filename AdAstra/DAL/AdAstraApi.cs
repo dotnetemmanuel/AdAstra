@@ -5,7 +5,7 @@ namespace AdAstra.DAL
 {
     public class AdAstraApi
     {
-        public static Uri BaseAddress = new Uri("https://localhost:44310/");
+        public static Uri BaseAddress = new Uri("https://adastraapi.azurewebsites.net/");
 
         public static async Task<List<Models.Category>> GetAllCategoriesFromAPI()
         {
