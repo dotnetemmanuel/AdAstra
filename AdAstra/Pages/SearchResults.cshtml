@@ -1,0 +1,45 @@
+﻿@page
+@model AdAstra.Pages.SearchResultsModel
+@{
+    var imgSrc = string.Empty;
+    ViewData["Title"] = "Search Results";
+}
+<br />
+<h1>Search Results</h1>
+<br />
+@if (Model.Results != null && Model.Results.Any())
+{
+    @foreach (var post in Model.Results)
+    {
+        <div class="card post post-page">
+            <div class="card-body">
+                @{
+
+                    if (post.Creator.Avatar == "~/img/user.png")
+                    {
+                        imgSrc = post.Creator.Avatar;
+                    }
+                    else
+                    {
+                        imgSrc = "~/userImages/" + post.Creator.Avatar;
+                    }
+                }
+
+                <img class="round-avatar avatar" src="@Url.Content(imgSrc)" alt="Avatar" />
+                <a asp-page="/Profile" asp-route-userId="@post.Creator.Id" class="card-text post-firstname">@post.Creator.Firstname</a>
+                <p class="card-text post-date">@post.CreatedAt</p>
+                <h5 class="card-title post-title"><a asp-route-postId="@post.Id" asp-page="/Post">@Helpers.ReplaceProphanities(post.Title)</a></h5>
+                <div class="stats">
+                    <p class="card-text post-replies"><img src="~/img/interactive_icons/comment.svg" alt="comments" />@post.Replies.Count</p>
+                    <p class="card-text post-likes"><img src="~/img/interactive_icons/like.svg" alt="likes" />@post.Likes</p>
+                    <p class="card-text post-reports"><img src="~/img/interactive_icons/report.svg" alt="reports" />@post.Reports.Count</p>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+else if (Model.Results == null)
+{
+    <h3>No results found.</h3>
+}

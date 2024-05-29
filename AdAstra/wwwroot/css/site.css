@@ -386,11 +386,7 @@ li {
     }
 
 /*=================== REPLY ===================*/
-.create-reply {
-    /* display: flex;
-    grid-template-rows: auto auto;*/
-    /*flex-direction: column;*/
-}
+
 
 .create-reply-form-container {
     display: grid;
@@ -553,6 +549,7 @@ li {
     }
 }
 /*===============Messages================*/
+
 .message-card {
     margin-left: 0;
     width: 100%
@@ -562,7 +559,44 @@ li {
     align-self: center;
 }
 
+/*===============Search================*/
+.searchbar{
+    display: grid;
+    align-content: center;
+    grid-template-rows: 3rem;
+    grid-template-columns: auto 50px;
+    margin-top: 2rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-input);
+    width:30%;
+}
+
+#searchPrompt{
+    background-color: transparent;
+    border: none;
+    grid-column: 1;
+    align-self: center;
+    height: 3rem;
+    outline: none;
+}
+
+    
+
+.search-icon {
+    border: none;
+    grid-column: 2;
+    background-color: transparent;
+    filter: brightness(0) saturate(100%) invert(9%) sepia(11%) saturate(1578%) hue-rotate(182deg) brightness(98%) contrast(93%);
+}
+
+.search-icon:active{
+    scale: .9;
+    
+}
+
 /*======================================*/
+
 .latest {
     font-size: 1.5rem;
     margin-left: 1rem;
