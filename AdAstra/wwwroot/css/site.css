@@ -625,6 +625,10 @@ li {
         margin-left: 2rem;
     }
 
+    .subreply-subreply{
+        margin-left: 4rem;
+    }
+
     .post {
         min-width: 100%;
     }
