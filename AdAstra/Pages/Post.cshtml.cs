@@ -101,7 +101,7 @@ namespace AdAstra.Pages
                 return Page();
             }
 
-            Post.UserId = userId;
+            Post.UserId = Post.UserId;
             Post.Content = content;
             Post.Likes++;
             await _context.SaveChangesAsync();
@@ -189,7 +189,7 @@ namespace AdAstra.Pages
             }
 
             Reply.Id = replyId;
-            Reply.UserId = userId;
+            Reply.UserId = Reply.UserId;
             Reply.Content = content;
             Reply.Likes++;
             await _context.SaveChangesAsync();
@@ -287,7 +287,7 @@ namespace AdAstra.Pages
             }
 
             Subreply.ParentReplyId = replyId;
-            Subreply.UserId = userId;
+            Subreply.UserId = Subreply.UserId;
             Subreply.Content = content;
             Subreply.Likes++;
             await _context.SaveChangesAsync();
