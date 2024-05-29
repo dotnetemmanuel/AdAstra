@@ -200,6 +200,8 @@
                             {
                                 <form class="action-form" method="post" asp-page-handler="ReportReply" asp-route-postId="@Model.Post.Id">
                                     <input type="hidden" name="id" value="@reply.Id" />
+                                    <input type="hidden" name="userId" value="@Model.Post.UserId" />
+                                    <input type="hidden" name="content" value="@Model.Post.Content" />
                                     <p class="card-text reply-reports">
 
                                         <button class="action-button" type="submit">
@@ -329,6 +331,8 @@
                                         <form class="action-form" method="post" asp-page-handler="ReportSubreply" asp-route-postId="@Model.Post.Id">
                                             <input type="hidden" name="replyId" value="@reply.Id" />
                                             <input type="hidden" name="subreplyId" value="@subreply.Id" />
+                                            <input type="hidden" name="userId" value="@Model.Post.UserId" />
+                                            <input type="hidden" name="content" value="@Model.Post.Content" />
                                             <p class="card-text reply-reports">
                                                 <button class="action-button" type="submit">
                                                     <img src="~/img/interactive_icons/report.svg" alt="reports" />

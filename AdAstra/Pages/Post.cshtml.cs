@@ -221,8 +221,12 @@ namespace AdAstra.Pages
                 {
                     return Page();
                 }
+                
+                Post.UserId = Post.UserId;
+                Post.Content = Post.Content;
+                
                 Report = new();
-                Report.ReporterId = userId;
+                                Report.ReporterId = userId;
                 Report.PostId = Post.Id;
                 Report.ReplyId = id;
 
@@ -318,6 +322,9 @@ namespace AdAstra.Pages
             {
                 return Page();
             }
+
+            Post.UserId = Post.UserId;
+            Post.Content = Post.Content;
 
             Report = new();
             Report.ReporterId = userId;
