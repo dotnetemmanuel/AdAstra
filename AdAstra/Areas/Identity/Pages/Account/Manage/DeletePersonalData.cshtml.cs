@@ -6,9 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AdAstra.Areas.Identity.Data;
+using AdAstra.Data;
+using AdAstra.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace AdAstra.Areas.Identity.Pages.Account.Manage
@@ -18,15 +21,18 @@ namespace AdAstra.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<AdAstraUser> _userManager;
         private readonly SignInManager<AdAstraUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly AdAstraContext _context;
 
         public DeletePersonalDataModel(
             UserManager<AdAstraUser> userManager,
             SignInManager<AdAstraUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            AdAstraContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         /// <summary>
@@ -87,9 +93,14 @@ namespace AdAstra.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var result = await _userManager.DeleteAsync(user);
+            //var result = await _userManager.DeleteAsync(user);
+            //var userId = await _userManager.GetUserIdAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
-            if (!result.Succeeded)
+            var result = await DeleteUserAsync(userId);
+
+
+            //if (!result.Succeeded)
+            if (!result)
             {
                 throw new InvalidOperationException($"Unexpected error occurred deleting user.");
             }
@@ -99,6 +110,71 @@ namespace AdAstra.Areas.Identity.Pages.Account.Manage
             _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
 
             return Redirect("~/");
+        }
+
+        //DELETE ALL USER-RELATED DATA TO DELETE USER
+        public async Task<bool> DeleteUserAsync(string userId)        {
+            
+            var user = await _context.Users
+                .Include(u => u.CreatedPosts)
+                    .ThenInclude(p => p.Replies)
+                        .ThenInclude(r => r.Replies)
+                .Include(u => u.CreatedReplies)
+                    .ThenInclude(r => r.Replies)
+                .Include(u => u.SentMessages)
+                .Include(u => u.ReceivedMessages)
+                .Include(u => u.ReportsMade)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+                        
+            foreach (var reply in user.CreatedReplies)
+            {
+                var relatedReports = _context.Reports.Where(r => r.ReplyId == reply.Id);
+                _context.Reports.RemoveRange(relatedReports);
+            }
+                        
+            foreach (var post in user.CreatedPosts)
+            {
+                var relatedReports = _context.Reports.Where(r => r.PostId == post.Id);
+                _context.Reports.RemoveRange(relatedReports);
+            }
+                        
+            foreach (var post in user.CreatedPosts)
+            {
+                DeleteReplies(post.Replies);
+            }
+                       
+            DeleteReplies(user.CreatedReplies);
+
+            _context.Messages.RemoveRange(user.SentMessages);
+            _context.Messages.RemoveRange(user.ReceivedMessages);
+
+            _context.Reports.RemoveRange(user.ReportsMade);
+
+            _context.Posts.RemoveRange(user.CreatedPosts);
+
+            _context.Users.Remove(user);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+
+        private void DeleteReplies(ICollection<Reply> replies)
+        {
+            foreach (var reply in replies)
+            {
+                if (reply.Replies != null && reply.Replies.Any())
+                {
+                    DeleteReplies(reply.Replies);
+                }
+                _context.Replies.Remove(reply);
+            }
         }
     }
 }
