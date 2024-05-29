@@ -45,19 +45,17 @@
 <div class="collapse" id="receivedMessages">
     @if (Model.Received.Count is not 0)
     {
-
-        <div class="card message-card">
+        @foreach (var receivedMessage in Model.Received)
+                {<div class="card message-card">
             <div class="card-body">
-
-                @foreach (var receivedMessage in Model.Received)
-                {
                     <p class="card-text">From: @receivedMessage.Sender.UserName - @receivedMessage.SentAt</p>
                     <h4 class="card-title">@receivedMessage.Title</h4>
                     <p class="card-text">&nbsp;&nbsp;@receivedMessage.Content</p>
-                }
+                </div>
             </div>
-        </div>
-            }
+        }
+            
+    }
     else
     {
         <h3>No messages</h3>
@@ -68,18 +66,16 @@
 <div class="collapse" id="sentMessages">
     @if (Model.Sent.Count is not 0)
     {
-
-        <div class="card message-card">
+        @foreach (var sentMessage in Model.Sent)
+                {<div class="card message-card">
             <div class="card-body">
-
-                @foreach (var sentMessage in Model.Sent)
-                {
                     <p class="card-text">To: @sentMessage.Recepient.UserName - @sentMessage.SentAt</p>
                     <h4 class="card-title">@sentMessage.Title</h4>
                     <p class="card-text">&nbsp;&nbsp;@sentMessage.Content</p>
-                }
+                </div>
             </div>
-        </div>
+        }
+           
     }
     else
     {
