@@ -61,8 +61,10 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <form class="action-form" asp-page-handler="LikePost" asp-route-postId="@Model.Post.Id">
+                    <form class="action-form" asp-page-handler="LikePost" asp-route-postId="@Model.Post.Id" asp-route-userId="@userId" asp-route-content="@Model.Post.Content">
                         <input type="hidden" name="postId" value="@Model.Post.Id" />
+                        <input type="hidden" name="userId" value="@userId" />
+                        <input type="hidden" name="content" value="@Model.Post.Content" />
                         <p class="card-text post-likes">
                             <button class="action-button" type="submit">
                                 <img src="~/img/interactive_icons/like.svg" alt="likes" />
@@ -81,7 +83,7 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <form class="action-form" method="post" asp-page-handler="ReportPost" asp-route-postId="@Model.Post.Id">
+                    <form class="action-form" method="post" asp-page-handler="ReportPost" asp-route-postId="@Model.Post.Id" asp-route-userId="@userId" asp-route-content="Model.Post.Content">
                         <input type="hidden" name="postId" value="@Model.Post.Id" />
                         <p class="card-text post-reports">
                             <button class="action-button" type="submit">
@@ -173,8 +175,10 @@
 
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <form class="action-form" method="post" asp-page-handler="LikeReply" asp-route-postId="@Model.Post.Id">
-                                    <input type="hidden" name="id" value="@reply.Id" />
+                                <form class="action-form" method="post" asp-page-handler="LikeReply" asp-route-postId="@Model.Post.Id" asp-route-replyId="@reply.Id" asp-route-userId="@userId" asp-route-content="@reply.Content">
+                                    <input type="hidden" name="replyId" value="@reply.Id" />
+                                    <input type="hidden" name="userId" value="@userId" />
+                                    <input type="hidden" name="content" value="@reply.Content" />
                                     <p class="card-text reply-likes">
                                         <button class="action-button" type="submit">
                                             <img src="~/img/interactive_icons/like.svg" alt="likes" />
@@ -299,9 +303,11 @@
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <form class="action-form" method="post" asp-page-handler="LikeSubreply" asp-route-postId="@Model.Post.Id">
+                                        <form class="action-form" method="post" asp-page-handler="LikeSubreply" asp-route-postId="@Model.Post.Id" asp-route-replyId="@reply.Id" asp-route-subreplyId="@subreply.Id" asp-route-userId="@userId" asp-route-content="@subreply.Content">
                                             <input type="hidden" name="replyId" value="@reply.Id" />
                                             <input type="hidden" name="subreplyId" value="@subreply.Id" />
+                                            <input type="hidden" name="userId" value="@userId" />
+                                            <input type="hidden" name="content" value="@subreply.Content" />
                                             <p class="card-text reply-likes">
                                                 <button class="action-button" type="submit">
                                                     <img src="~/img/interactive_icons/like.svg" alt="likes" />
