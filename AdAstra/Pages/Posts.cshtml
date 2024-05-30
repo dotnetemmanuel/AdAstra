@@ -2,7 +2,7 @@
 @using System.Security.Claims
 @model AdAstra.Pages.PostsModel
 @{
-    ViewData["Title"] = "Posts";
+    ViewData["Title"] = Model.Category.Name;
     var imgSrc = string.Empty;
     string userId = string.Empty;
     if (User.Identity.IsAuthenticated)

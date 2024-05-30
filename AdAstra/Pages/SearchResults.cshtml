@@ -2,7 +2,7 @@
 @model AdAstra.Pages.SearchResultsModel
 @{
     var imgSrc = string.Empty;
-    ViewData["Title"] = "Search Results";
+    ViewData["Title"] = "Search Results for \"" + Model.SearchPrompt + "\"";
 }
 <br />
 <h1>Search Results</h1>
@@ -36,7 +36,6 @@
                 </div>
             </div>
         </div>
-
     }
 }
 else if (Model.Results == null)

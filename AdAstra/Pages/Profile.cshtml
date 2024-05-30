@@ -3,6 +3,7 @@
 
 @model AdAstra.Pages.ProfileModel
 @{
+    ViewData["Title"] = Model.User.Firstname +" " + Model.User.Lastname;
     string senderId = string.Empty;
     if (User.Identity.IsAuthenticated)
     {

@@ -3,7 +3,7 @@
 
 @model AdAstra.Pages.PostModel
 @{
-    ViewData["Title"] = "@Model.Post.Title";
+    ViewData["Title"] = Model.Post.Title;
     var imgSrc = string.Empty;
     string userId = string.Empty;
     if (User.Identity.IsAuthenticated)
