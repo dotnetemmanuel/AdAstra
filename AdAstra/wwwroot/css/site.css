@@ -162,7 +162,7 @@ text-justify: auto;    }
 }
 
 #cookie-btn {
-    border: 2px solid none;
+    border: 2px solid white;
     background-color: var(--dark);
     border-radius: var(--border-radius);
     padding: 10px 20px;
