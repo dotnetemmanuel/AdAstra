@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AdAstra.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AdAstra.styles.css" asp-append-version="true" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -58,18 +60,27 @@
                     <h1 id="title" class="display-6">Ad Astra</h1>
                     <p>The #1 forum for space enthusiasts. Join the ultimate community where space exploration meets astronomy, and engage with experts and fans in lively discussions about the latest space missions, cosmic discoveries, and beyond.</p>
                 </div>
-            </div> 
-            <div >
-                <form method="get" class="searchbar" action="/SearchResults">
+            </div>
+            @if (ViewData["HideSearchBar"] == null || !(bool)ViewData["HideSearchBar"])
+            {
+                <div>
+                    <form method="get" class="searchbar" action="/SearchResults">
                     <div class="form-group">
                         <label hidden for="searchPrompt">Search</label>
                         <input type="text" id="searchPrompt" name="searchPrompt" class="form-control" placeholder="Search" />
                     </div>
-                    <button type="submit" class="search-icon"><img src="~/img/interactive_icons/search.svg"/></button>
+                    <button type="submit" class="search-icon"><img src="~/img/interactive_icons/search.svg" /></button>
                 </form>
             </div>
+            }
             @RenderBody()
         </main>
+    </div>
+
+    <div class="container-fluid" id="cookie-consent-container">
+        <div>
+            <partial name="_CookieConsentPartial" />
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
