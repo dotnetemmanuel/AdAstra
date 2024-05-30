@@ -160,6 +160,7 @@ li {
     margin: auto;
     opacity: .15;
     justify-self: center;
+    align-self: center;
 }
 
 .card {
@@ -188,6 +189,10 @@ li {
 @media (max-width:1199px) {
     .cat-card {
         width: 96%;
+    }
+
+    .cat-img{
+        width: 150px;
     }
 }
 
@@ -310,16 +315,16 @@ li {
     border: none;
 }
 
-.post-page{
+.post-page {
     margin-left: 0;
 }
 
-    .post .card-body {
-        display: grid;
-        grid-template-rows: 30px auto, auto, 80px;
-        grid-template-columns: 80px 1fr auto;
-        column-gap: 20px;
-    }
+.post .card-body {
+    display: grid;
+    grid-template-rows: 30px auto, auto, 80px;
+    grid-template-columns: 80px 1fr auto;
+    column-gap: 20px;
+}
 
 .round-avatar {
     border-radius: var(--border-radius-avatar);
@@ -560,7 +565,7 @@ li {
 }
 
 /*===============Search================*/
-.searchbar{
+.searchbar {
     display: grid;
     align-content: center;
     grid-template-rows: 3rem;
@@ -569,10 +574,10 @@ li {
     background-color: white;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-input);
-    width:30%;
+    width: 30%;
 }
 
-#searchPrompt{
+#searchPrompt {
     background-color: transparent;
     border: none;
     grid-column: 1;
@@ -588,13 +593,16 @@ li {
     filter: brightness(0) saturate(100%) invert(9%) sepia(11%) saturate(1578%) hue-rotate(182deg) brightness(98%) contrast(93%);
 }
 
-.search-icon:active{
-    scale: .9;
-    
+    .search-icon:active {
+        transform: scale(.9);
+    }
+
+@media (max-width: 1199px){
+    .searchbar{
+        width: 100%
+    }
 }
-
 /*======================================*/
-
 .latest {
     font-size: 1.5rem;
     margin-left: 1rem;
@@ -602,7 +610,7 @@ li {
 
 /*===============INDENTATION================*/
 
-@media (max-width:576px) {
+@media (max-width: 576px) {
 
     .post card-body {
         grid-template-rows: 50px auto auto 200px;
@@ -625,7 +633,7 @@ li {
         margin-left: 2rem;
     }
 
-    .subreply-subreply{
+    .subreply-subreply {
         margin-left: 4rem;
     }
 
