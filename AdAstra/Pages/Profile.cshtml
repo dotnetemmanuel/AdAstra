@@ -46,7 +46,7 @@
             <h2 class="profile-user-name">@Model.User.Firstname @Model.User.Lastname</h2>
             <h5>Member since: @Model.User.CreatedAt</h5>
             <h5>Posts: @Model.User.CreatedPosts.Count</h5>
-            <h5>Posts: @Model.User.CreatedReplies.Count</h5>
+            <h5>Replies: @Model.User.CreatedReplies.Count</h5>
 
             @{
                 var totalCount = Model.User.CreatedPosts.Count + Model.User.CreatedReplies.Count;
