@@ -115,20 +115,41 @@ namespace AdAstra.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+
             var image = UploadedImage;
-            string fileName = string.Empty;
 
-            if (image is not null)
+            //DEBUGGING
+            //string fileName = string.Empty;
+
+            //if (image is not null)
+            //{
+            //    fileName = DateTime.Now.ToString().Replace(":", "_").Replace(" ", "_") + image.FileName;
+
+            //    //using (var fileStream = new FileStream("C:\home\site\wwwroot\wwwroot\userImages\" + fileName, FileMode.Create))
+            //    using (var fileStream = new FileStream("./wwwroot/userImages/" + fileName, FileMode.Create))
+            //    {
+            //        await image.CopyToAsync(fileStream);
+            //    }
+            //}
+
+            //AZURE
+            string directoryPath = Path.Combine("C:", "home", "site", "wwwroot", "wwwroot", "userImages");
+            if (!Directory.Exists(directoryPath))
             {
-                fileName = DateTime.Now.ToString().Replace(":", "_").Replace(" ", "_") + image.FileName;
-
-                using (var fileStream = new FileStream("./wwwroot/userImages/" + fileName, FileMode.Create))
-                {
-                    await image.CopyToAsync(fileStream);
-                }
+                Directory.CreateDirectory(directoryPath);
             }
-                
-            
+
+            string fileName = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + "_" + image.FileName;
+            string filePath = Path.Combine(directoryPath, fileName);
+
+            Console.WriteLine($"Full file path: {filePath}");
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+
+
 
             user.Avatar = fileName;
             await _userManager.UpdateAsync(user);
