@@ -189,7 +189,7 @@ text-justify: auto;    }
 }
 /*=================== CATEGORIES ===================*/
 
-.cat-card {
+.cat-card {height: auto;
 }
 
 .cat-row {
@@ -198,6 +198,7 @@ text-justify: auto;    }
 .cat-card-body {
     display: grid;
     align-content: center;
+    
 }
 
 .cat-card-content {

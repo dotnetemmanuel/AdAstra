@@ -19,17 +19,19 @@ namespace AdAstra
 
             builder.Services.AddHttpClient();
             // Add services to the container.
-            builder.Services.AddRazorPages();
-            //builder.Services.AddRazorPages(options => {
-            //    options.Conventions.AuthorizeFolder("/AdminRole", "HiggsRequirement");
-            //    options.Conventions.AuthorizeFolder("/Admin/AdminCategory", "AdminRequirement");
-            //    options.Conventions.AuthorizeFolder("/Admin/AdminMessage", "AdminRequirement");
-            //    options.Conventions.AuthorizeFolder("/Admin/AdminPost", "AdminRequirement");
-            //    options.Conventions.AuthorizeFolder("/Admin/AdminReply", "AdminRequirement");
-            //    options.Conventions.AuthorizeFolder("/Admin/AdminReport", "AdminRequirement");
 
-            //    // Now accessible by both Admin and Higgs roles
-            //});
+            //builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/AdminRole", "HiggsRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminCategory", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminMessage", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminPost", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminReply", "AdminRequirement");
+                options.Conventions.AuthorizeFolder("/Admin/AdminReport", "AdminRequirement");
+
+                // Now accessible by both Admin and Higgs roles
+            });
 
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
